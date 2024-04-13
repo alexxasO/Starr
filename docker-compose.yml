@@ -1,0 +1,142 @@
+version: "3.8"
+
+include:
+- exportarr/compose.yaml
+- grafana/compose.yaml
+
+services:
+
+  # Starr apps
+  sonarr:
+    container_name: sonarr
+    image: ghcr.io/hotio/sonarr
+    ports:
+      - "8989:8989"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/sonarr:/config
+      - ${DATA_PATH}:/data
+
+  radarr:
+    container_name: radarr
+    image: ghcr.io/hotio/radarr
+    ports:
+      - "7878:7878"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/radarr:/config
+      - ${DATA_PATH}:/data
+
+  bazarr:
+    container_name: bazarr
+    image: ghcr.io/hotio/bazarr
+    ports:
+      - "6767:6767"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+      - WEBUI_PORTS=6767/tcp,6767/udp
+    volumes:
+      - ${APPDATA_PATH}/bazarr:/config
+      - ${DATA_PATH}:/data
+
+  prowlarr:
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr
+    ports:
+      - "9696:9696"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/prowlarr:/config
+
+  # Downloaders
+  qbittorrent:
+    container_name: qbittorrent
+    image: ghcr.io/hotio/qbittorrent
+    ports:
+      - "8080:8080"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+      - WEBUI_PORTS=8080/tcp,8080/udp
+    volumes:
+      - ${APPDATA_PATH}/qbittorrent:/config
+      - ${DATA_PATH}:/data
+
+  # Media Server
+  # plex:
+  #   container_name: plex
+  #   image: ghcr.io/hotio/plex
+  #   ports:
+  #     - "32400:32400"
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - UMASK=${UMASK}
+  #     - TZ=${TZ}
+  #     - PLEX_CLAIM_TOKEN
+  #     - PLEX_ADVERTISE_URL
+  #     - PLEX_NO_AUTH_NETWORKS
+  #     - PLEX_BETA_INSTALL=false
+  #     - PLEX_PURGE_CODECS=false
+  #   volumes:
+  #     - ${APPDATA_PATH}/plex:/config
+  #     - ${TRANSCODE_PATH}:/transcode
+  #     - ${DATA_PATH}:/data
+
+  jellyfin:
+    container_name: jellyfin
+    image: ghcr.io/hotio/jellyfin
+    ports:
+      - "8096:8096"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/jellyfin:/config
+      - ${DATA_PATH}:/data
+
+  # Misc
+  # overseerr:
+  #   container_name: overseerr
+  #   image: ghcr.io/hotio/overseerr
+  #   ports:
+  #     - "5055:5055"
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - UMASK=${UMASK}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${APPDATA_PATH}/overserr:/config
+
+  jellyseerr:
+    container_name: jellyseerr
+    image: ghcr.io/hotio/jellyseerr
+    ports:
+      - "5055:5055"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/jellyseerr:/config
