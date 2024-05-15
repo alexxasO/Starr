@@ -1,8 +1,8 @@
 version: "3.8"
 
-include:
-- exportarr/compose.yaml
-- grafana/compose.yaml
+# include:
+# - exportarr/compose.yaml
+# - grafana/compose.yaml
 
 services:
 
@@ -62,6 +62,34 @@ services:
       - TZ=${TZ}
     volumes:
       - ${APPDATA_PATH}/prowlarr:/config
+
+  readarr:
+    container_name: readarr
+    image: ghcr.io/hotio/readarr
+    ports:
+      - "8787:8787"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/readarr:/config
+      - ${DATA_PATH}:/data
+
+  lidarr:
+    container_name: lidarr
+    image: ghcr.io/hotio/lidarr
+    ports:
+      - "8686:8686"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/lidarr:/config
+      - ${DATA_PATH}:/data
 
   # Downloaders
   qbittorrent:
@@ -140,3 +168,24 @@ services:
       - TZ=${TZ}
     volumes:
       - ${APPDATA_PATH}/jellyseerr:/config
+
+  # reiverr:
+  #   image: ghcr.io/aleksilassila/reiverr:latest
+  #   container_name: reiverr
+  #   ports:
+  #     - 9494:9494
+  #   volumes:
+  #     - ${APPDATA_PATH}/reiverr:/config
+  #   restart: unless-stopped
+
+  flaresolverr:
+    # DockerHub mirror flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=${TZ}
+    ports:
+      - "${PORT:-8191}:8191"

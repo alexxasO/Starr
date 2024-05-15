@@ -31,7 +31,7 @@ services:
 #      - pushgateway
     # networks:
     #   - back-tier
-    restart: always
+    restart: unless-stopped
 #    deploy:
 #      placement:
 #        constraints:
@@ -54,7 +54,7 @@ services:
       - 9100:9100
     # networks:
     #   - back-tier
-    restart: always
+    restart: unless-stopped
     deploy:
       mode: global
 
@@ -66,7 +66,7 @@ services:
       - ./appdata/alertmanager/:/etc/alertmanager/
     # networks:
     #   - back-tier
-    restart: always
+    restart: unless-stopped
     command:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
@@ -85,7 +85,7 @@ services:
       - 8083:8080
     # networks:
     #   - back-tier
-    restart: always
+    restart: unless-stopped
     deploy:
       mode: global
 
@@ -104,11 +104,11 @@ services:
     # networks:
     #   - back-tier
     #   - front-tier
-    restart: always
+    restart: unless-stopped
 
 #  pushgateway:
 #    image: prom/pushgateway
-#    restart: always
+#    restart: unless-stopped
 #    expose:
 #      - 9091
 #    ports:
