@@ -9,6 +9,7 @@ services:
   # Starr apps
   sonarr:
     container_name: sonarr
+    restart: unless-stopped
     image: ghcr.io/hotio/sonarr
     ports:
       - "8989:8989"
@@ -20,9 +21,14 @@ services:
     volumes:
       - ${APPDATA_PATH}/sonarr:/config
       - ${DATA_PATH}:/data
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   radarr:
     container_name: radarr
+    restart: unless-stopped
     image: ghcr.io/hotio/radarr
     ports:
       - "7878:7878"
@@ -34,9 +40,14 @@ services:
     volumes:
       - ${APPDATA_PATH}/radarr:/config
       - ${DATA_PATH}:/data
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   bazarr:
     container_name: bazarr
+    restart: unless-stopped
     image: ghcr.io/hotio/bazarr
     ports:
       - "6767:6767"
@@ -49,9 +60,14 @@ services:
     volumes:
       - ${APPDATA_PATH}/bazarr:/config
       - ${DATA_PATH}:/data
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   prowlarr:
     container_name: prowlarr
+    restart: unless-stopped
     image: ghcr.io/hotio/prowlarr
     ports:
       - "9696:9696"
@@ -62,9 +78,14 @@ services:
       - TZ=${TZ}
     volumes:
       - ${APPDATA_PATH}/prowlarr:/config
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   readarr:
     container_name: readarr
+    restart: unless-stopped
     image: ghcr.io/hotio/readarr
     ports:
       - "8787:8787"
@@ -76,9 +97,14 @@ services:
     volumes:
       - ${APPDATA_PATH}/readarr:/config
       - ${DATA_PATH}:/data
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   lidarr:
     container_name: lidarr
+    restart: unless-stopped
     image: ghcr.io/hotio/lidarr
     ports:
       - "8686:8686"
@@ -90,10 +116,34 @@ services:
     volumes:
       - ${APPDATA_PATH}/lidarr:/config
       - ${DATA_PATH}:/data
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
+
+  mylar3:
+    image: lscr.io/linuxserver/mylar3:latest
+    container_name: mylar3
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/mylar3/config:/config
+      - ${DATA_PATH}/mylar3/comics:/comics
+      - ${DATA_PATH}/mylar3/downloads:/downloads
+    ports:
+      - 8090:8090
+    restart: unless-stopped
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   # Downloaders
   qbittorrent:
     container_name: qbittorrent
+    restart: unless-stopped
     image: ghcr.io/hotio/qbittorrent
     ports:
       - "8080:8080"
@@ -106,30 +156,40 @@ services:
     volumes:
       - ${APPDATA_PATH}/qbittorrent:/config
       - ${DATA_PATH}:/data
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   # Media Server
-  # plex:
-  #   container_name: plex
-  #   image: ghcr.io/hotio/plex
-  #   ports:
-  #     - "32400:32400"
-  #   environment:
-  #     - PUID=${PUID}
-  #     - PGID=${PGID}
-  #     - UMASK=${UMASK}
-  #     - TZ=${TZ}
-  #     - PLEX_CLAIM_TOKEN
-  #     - PLEX_ADVERTISE_URL
-  #     - PLEX_NO_AUTH_NETWORKS
-  #     - PLEX_BETA_INSTALL=false
-  #     - PLEX_PURGE_CODECS=false
-  #   volumes:
-  #     - ${APPDATA_PATH}/plex:/config
-  #     - ${TRANSCODE_PATH}:/transcode
-  #     - ${DATA_PATH}:/data
+  plex:
+    container_name: plex
+    restart: unless-stopped
+    image: ghcr.io/hotio/plex
+    ports:
+      - "32400:32400"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+      - PLEX_CLAIM_TOKEN
+      - PLEX_ADVERTISE_URL
+      - PLEX_NO_AUTH_NETWORKS
+      - PLEX_BETA_INSTALL=false
+      - PLEX_PURGE_CODECS=false
+    volumes:
+      - ${APPDATA_PATH}/plex:/config
+      - ${TRANSCODE_PATH}:/transcode
+      - ${DATA_PATH}:/data
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   jellyfin:
     container_name: jellyfin
+    restart: unless-stopped
     image: ghcr.io/hotio/jellyfin
     ports:
       - "8096:8096"
@@ -141,10 +201,15 @@ services:
     volumes:
       - ${APPDATA_PATH}/jellyfin:/config
       - ${DATA_PATH}:/data
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   # Misc
   # overseerr:
   #   container_name: overseerr
+  #   restart: unless-stopped
   #   image: ghcr.io/hotio/overseerr
   #   ports:
   #     - "5055:5055"
@@ -155,9 +220,14 @@ services:
   #     - TZ=${TZ}
   #   volumes:
   #     - ${APPDATA_PATH}/overserr:/config
+  #   labels:
+  #     - "org.hotio.pullio.notify=true"
+  #     - "org.hotio.pullio.update=true"
+  #     - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   jellyseerr:
     container_name: jellyseerr
+    restart: unless-stopped
     image: ghcr.io/hotio/jellyseerr
     ports:
       - "5055:5055"
@@ -168,10 +238,15 @@ services:
       - TZ=${TZ}
     volumes:
       - ${APPDATA_PATH}/jellyseerr:/config
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   # reiverr:
   #   image: ghcr.io/aleksilassila/reiverr:latest
   #   container_name: reiverr
+  # restart: unless-stopped
   #   ports:
   #     - 9494:9494
   #   volumes:
@@ -182,6 +257,7 @@ services:
     # DockerHub mirror flaresolverr/flaresolverr:latest
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
+    restart: unless-stopped
     environment:
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - LOG_HTML=${LOG_HTML:-false}
@@ -189,3 +265,132 @@ services:
       - TZ=${TZ}
     ports:
       - "${PORT:-8191}:8191"
+
+  unmanic:
+    container_name: unmanic
+    restart: unless-stopped
+    image: josh5/unmanic:latest
+    ports:
+      - 8888:8888
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - ${APPDATA_PATH}/unmanic:/config
+      - ${DATA_PATH}/media:/library
+      - /tmp/unmanic:/tmp/unmanic
+
+  rflood:
+    container_name: rflood
+    restart: unless-stopped
+    image: ghcr.io/hotio/rflood
+    ports:
+      - "3000:3000"
+      - "5000:5000"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+      - FLOOD_AUTH=true
+    volumes:
+      - ${APPDATA_PATH}/rflood:/config
+      - ${DATA_PATH}/torrents/blackhole:/config/download
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
+
+  plexautolanguages:
+    image: remirigal/plex-auto-languages:latest
+    restart: unless-stopped
+    environment:
+      #- PLEX_URL=https://plex.antxis.fr
+      #- PLEX_TOKEN=${PLEX_TOKEN}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/plexautolanguages:/config
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
+
+  # qbitmanage:
+  #   container_name: qbitmanage
+  #   image: ghcr.io/hotio/qbitmanage
+  #   environment:
+  #     - PUID=${PUID}
+  #     - PGID=${PGID}
+  #     - UMASK=${UMASK}
+  #     - TZ=${TZ}
+  #   volumes:
+  #     - ${APPDATA_PATH}/qbitmanage:/config
+  #     - ${APPDATA_PATH}/qbittorrent:/qbittorrent
+  #     - ${DATA_PATH}:/data
+
+  gotify:
+    image: gotify/server
+    restart: unless-stopped
+    ports:
+      - "5080:80"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/gotify:/app/data
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
+
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+      - ${APPDATA_PATH}/homarr/config:/app/data/configs
+      - ${APPDATA_PATH}/homarr/icons:/app/public/icons
+      - ${APPDATA_PATH}/homarr/data:/data
+    ports:
+      - '7575:7575'
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
+
+  tautulli:
+    container_name: tautulli
+    image: ghcr.io/hotio/tautulli
+    ports:
+      - "8181:8181"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=Etc/UTC
+      - WEBUI_PORTS=8181/tcp,8181/udp
+    volumes:
+      - ${APPDATA_PATH}/tautulli:/config
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
+
+  jellyplex-watched:
+    container_name: jellyplex-watched
+    image: luigi311/jellyplex-watched:latest
+    volumes:
+      - ${APPDATA_PATH}/jellyplex-watched/.env:/app/.env
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - UMASK=${UMASK}
+      - TZ=${TZ}
+      - PLEX_TOKEN=${PLEX_TOKEN}
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
