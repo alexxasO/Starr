@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  zurg:
+    image: ghcr.io/debridmediamanager/zurg-testing:v0.9.3-final
+    container_name: zurg
+    restart: unless-stopped
+    healthcheck:
+      test: curl -f localhost:9999/dav/version.txt || exit 1
+    ports:
+      - 9999:9999
+    volumes:
+      - ./config.yml:/app/config.yml
+      - ./data:/app/data
+
+  rclone:
+    image: rclone/rclone:latest
+    container_name: rclone
+    restart: unless-stopped
+    environment:
+      TZ: Europe/Berlin
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - /mnt/remote/realdebrid:/data:rshared
+      - ./rclone.conf:/config/rclone/rclone.conf
+      - /mnt:/mnt
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    devices:
+      - /dev/fuse:/dev/fuse:rwm
+    depends_on:
+      zurg:
+        condition: service_healthy
+        restart: true
+    healthcheck:
+      test: "rclone about zurg: --config /config/rclone/rclone.conf"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: "mount zurg: /data --allow-non-empty --allow-other --uid=1000 --gid=1000 --umask=002 --dir-cache-time 10s"
