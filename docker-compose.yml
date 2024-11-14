@@ -2,10 +2,7 @@ version: "3.8"
 
 include:
   - zurg/docker-compose.yml
-  # - varken/compose.yml
-#  - debrid/compose.yml
-# - exportarr/compose.yaml
-# - grafana/compose.yaml
+#   - varken/compose.yml
 
 services:
 
