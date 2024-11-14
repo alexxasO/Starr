@@ -1,6 +1,9 @@
 version: "3.8"
 
-# include:
+include:
+  - zurg/docker-compose.yml
+  # - varken/compose.yml
+#  - debrid/compose.yml
 # - exportarr/compose.yaml
 # - grafana/compose.yaml
 
@@ -21,6 +24,9 @@ services:
     volumes:
       - ${APPDATA_PATH}/sonarr:/config
       - ${DATA_PATH}:/data
+      - /mnt:/mnt
+    depends_on:
+      - rclone
     labels:
       - "org.hotio.pullio.notify=true"
       - "org.hotio.pullio.update=true"
@@ -40,6 +46,9 @@ services:
     volumes:
       - ${APPDATA_PATH}/radarr:/config
       - ${DATA_PATH}:/data
+      - /mnt:/mnt
+    depends_on:
+      - rclone
     labels:
       - "org.hotio.pullio.notify=true"
       - "org.hotio.pullio.update=true"
@@ -60,6 +69,9 @@ services:
     volumes:
       - ${APPDATA_PATH}/bazarr:/config
       - ${DATA_PATH}:/data
+      - /mnt:/mnt
+    depends_on:
+      - rclone
     labels:
       - "org.hotio.pullio.notify=true"
       - "org.hotio.pullio.update=true"
@@ -78,6 +90,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${APPDATA_PATH}/prowlarr:/config
+      - /mnt:/mnt
     labels:
       - "org.hotio.pullio.notify=true"
       - "org.hotio.pullio.update=true"
@@ -182,6 +195,14 @@ services:
       - ${APPDATA_PATH}/plex:/config
       - ${TRANSCODE_PATH}:/transcode
       - ${DATA_PATH}:/data
+      - /mnt:/mnt
+    healthcheck:
+      test: curl -f localhost:32400/web/index.html || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 5
+    depends_on:
+      - rclone
     labels:
       - "org.hotio.pullio.notify=true"
       - "org.hotio.pullio.update=true"
@@ -201,10 +222,29 @@ services:
     volumes:
       - ${APPDATA_PATH}/jellyfin:/config
       - ${DATA_PATH}:/data
+      - /mnt:/mnt
+    healthcheck:
+      test: curl -f localhost:8096/web/index.html || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 5
+    depends_on:
+      - rclone
     labels:
       - "org.hotio.pullio.notify=true"
       - "org.hotio.pullio.update=true"
       - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
+
+  # jf-vue:
+  #   image: jellyfin/jellyfin-vue:unstable
+  #   container_name: "jellyfin-vue-client"
+  #   stdin_open: true
+  #   tty: true
+  #   ports:
+  #     - 3831:80/tcp
+  #   restart: unless-stopped
+  #   environment:
+  #     - DEFAULT_SERVERS=https://jellyserver.antxis.fr # optional
 
   # Misc
   # overseerr:
@@ -255,7 +295,7 @@ services:
 
   flaresolverr:
     # DockerHub mirror flaresolverr/flaresolverr:latest
-    image: ghcr.io/flaresolverr/flaresolverr:latest
+    image: 21hsmw/flaresolverr:nodriver
     container_name: flaresolverr
     restart: unless-stopped
     environment:
@@ -285,7 +325,7 @@ services:
     restart: unless-stopped
     image: ghcr.io/hotio/rflood
     ports:
-      - "3000:3000"
+      - "3001:3000"
       - "5000:5000"
     environment:
       - PUID=${PUID}
@@ -345,21 +385,21 @@ services:
       - "org.hotio.pullio.update=true"
       - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
-  # homarr:
-  #   container_name: homarr
-  #   image: ghcr.io/ajnart/homarr:latest
-  #   restart: unless-stopped
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
-  #     - ${APPDATA_PATH}/homarr/config:/app/data/configs
-  #     - ${APPDATA_PATH}/homarr/icons:/app/public/icons
-  #     - ${APPDATA_PATH}/homarr/data:/data
-  #   ports:
-  #     - '7575:7575'
-  #   labels:
-  #     - "org.hotio.pullio.notify=true"
-  #     - "org.hotio.pullio.update=true"
-  #     - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+      - ${APPDATA_PATH}/homarr/config:/app/data/configs
+      - ${APPDATA_PATH}/homarr/icons:/app/public/icons
+      - ${APPDATA_PATH}/homarr/data:/data
+    ports:
+      - '7575:7575'
+    labels:
+      - "org.hotio.pullio.notify=true"
+      - "org.hotio.pullio.update=true"
+      - "org.hotio.pullio.discord.webhook=https://discord.com/api/webhooks/1258718170793902110/6bTMXMgS2bOBUqzfDcHQEVbdj2R894Jdm695wDf3fNjtm6ar4PA_JFSVaCG1aDHqqfQv"
 
   tautulli:
     container_name: tautulli
@@ -390,6 +430,13 @@ services:
       - UMASK=${UMASK}
       - TZ=${TZ}
       - PLEX_TOKEN=${PLEX_TOKEN}
+    depends_on:
+      jellyfin:
+        condition: service_healthy
+        restart: true
+      plex:
+        condition: service_healthy
+        restart: true
     labels:
       - "org.hotio.pullio.notify=true"
       - "org.hotio.pullio.update=true"
@@ -403,6 +450,7 @@ services:
       POSTGRES_PASSWORD: mypassword
     volumes:
     - jellystat-db:/var/lib/postgresql/data # Mounting the volume
+
   jellystat:
     image: cyfershepard/jellystat:latest
     environment:
@@ -415,10 +463,39 @@ services:
       - "8097:3000" #Server Port
     volumes:
       - jellystat:/app/backend/backup-data # Mounting the volume
-
     depends_on:
       - jellystat-db
     restart: unless-stopped
+
+  wizarr:
+    container_name: wizarr
+    image: ghcr.io/wizarrrr/wizarr:latest
+    ports:
+      - 5690:5690
+    volumes:
+      - ${APPDATA_PATH}/wizarr/database:/data/database
+
+  jfa-go:
+    container_name: jfa-go
+    image: hrfee/jfa-go
+    ports:
+      - 8056:8056
+    volumes:
+      - ${APPDATA_PATH}/jfa-go:/data
+      - ${APPDATA_PATH}/jellyfin:/jf
+      - /etc/localtime:/etc/localtime:ro
+
+  # homepage:
+  #   image: ghcr.io/gethomepage/homepage:latest
+  #   container_name: homepage
+  #   ports:
+  #     - 3002:3000
+  #   volumes:
+  #     - ${APPDATA_PATH}/homepage:/app/config # Make sure your local config directory exists
+  #     - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations, see alternative methods
+  #   environment:
+  #     PUID: ${PUID}
+  #     PGID: ${PGID}
 
 volumes:
   jellystat:
