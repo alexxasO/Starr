@@ -2,7 +2,6 @@ version: "3.8"
 
 include:
   - zurg/docker-compose.yml
-#   - varken/compose.yml
 
 services:
 
