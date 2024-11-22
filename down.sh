@@ -1,0 +1,1 @@
+docker compose down && cd /opt/blackhole && /opt/blackhole/down-docker.sh && cd ~/Starr
