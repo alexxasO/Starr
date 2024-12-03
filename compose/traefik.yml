@@ -21,4 +21,4 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.traefik.rule=Host(`traefik.lan`)" # Route for Traefik
     - "traefik.http.services.traefik.loadbalancer.server.port=8080" # Dashboard port
-    - "traefik.http.middlewares.auth.basicauth.users=admin:$apr1$cktgRUyh$Mdg4SnDK8WBqt9ObfwQpm." # Optional: Basic auth for security
+    - 'traefik.http.middlewares.auth.basicauth.users=admin:$apr1$cktgRUyh$Mdg4SnDK8WBqt9ObfwQpm.' # Optional: Basic auth for security
