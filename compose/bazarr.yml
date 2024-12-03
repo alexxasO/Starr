@@ -1,0 +1,23 @@
+services:
+  bazarr:
+    container_name: bazarr
+    restart: unless-stopped
+    image: ghcr.io/hotio/bazarr
+    ports:
+    - "6767:6767"
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    - WEBUI_PORTS=6767/tcp,6767/udp
+    volumes:
+    - ${APPDATA_PATH}/bazarr:/config
+    - ${DATA_PATH}:/data
+    - /mnt:/mnt
+    depends_on:
+    - rclone
+    labels:
+    - "org.hotio.pullio.notify=true"
+    - "org.hotio.pullio.update=true"
+    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"

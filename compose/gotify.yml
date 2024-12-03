@@ -1,0 +1,17 @@
+services:
+  gotify:
+    image: gotify/server
+    restart: unless-stopped
+    ports:
+    - "5080:80"
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    volumes:
+    - ${APPDATA_PATH}/gotify:/app/data
+    labels:
+    - "org.hotio.pullio.notify=true"
+    - "org.hotio.pullio.update=true"
+    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"

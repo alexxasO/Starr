@@ -1,0 +1,10 @@
+services:
+  jfa-go:
+    container_name: jfa-go
+    image: hrfee/jfa-go
+    ports:
+    - 8056:8056
+    volumes:
+    - ${APPDATA_PATH}/jfa-go:/data
+    - ${APPDATA_PATH}/jellyfin:/jf
+    - /etc/localtime:/etc/localtime:ro

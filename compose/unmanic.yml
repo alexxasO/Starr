@@ -1,0 +1,14 @@
+services:
+  unmanic:
+    container_name: unmanic
+    restart: unless-stopped
+    image: josh5/unmanic:latest
+    ports:
+    - 8888:8888
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    volumes:
+    - ${APPDATA_PATH}/unmanic:/config
+    - ${DATA_PATH}/media:/library
+    - /tmp/unmanic:/tmp/unmanic

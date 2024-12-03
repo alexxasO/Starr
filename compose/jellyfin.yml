@@ -1,0 +1,29 @@
+services:
+  jellyfin:
+    container_name: jellyfin
+    restart: unless-stopped
+    image: ghcr.io/hotio/jellyfin
+    ports:
+    - "8096:8096"
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    volumes:
+    - ${APPDATA_PATH}/jellyfin:/config
+    - ${DATA_PATH}:/data
+    - /mnt:/mnt
+    healthcheck:
+      test: curl -f localhost:8096/web/index.html || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 5
+    depends_on:
+      rclone:
+        condition: service_healthy
+        restart: true
+    labels:
+    - "org.hotio.pullio.notify=true"
+    - "org.hotio.pullio.update=true"
+    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"

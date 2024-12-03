@@ -1,0 +1,27 @@
+services:
+  sonarr:
+    container_name: sonarr
+    restart: unless-stopped
+    image: ghcr.io/hotio/sonarr
+    ports:
+    - "8989:8989"
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    volumes:
+    - ${APPDATA_PATH}/sonarr:/config
+    - ${DATA_PATH}:/data
+    - /mnt:/mnt
+    depends_on:
+    - rclone
+    networks:
+    - traefik-net
+    labels:
+    - "org.hotio.pullio.notify=true"
+    - "org.hotio.pullio.update=true"
+    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+    - "traefik.enable=true"
+    - "traefik.http.routers.sonarr.rule=Host(`sonarr.lan`)"
+    - "traefik.http.services.sonarr.loadbalancer.server.port=8989" # Default Sonarr port

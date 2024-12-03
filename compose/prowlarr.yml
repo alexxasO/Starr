@@ -1,0 +1,22 @@
+services:
+  prowlarr:
+    container_name: prowlarr
+    restart: unless-stopped
+    image: ghcr.io/hotio/prowlarr
+    ports:
+    - "9696:9696"
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    volumes:
+    - ${APPDATA_PATH}/prowlarr:/config
+    - /mnt:/mnt
+    labels:
+    - "org.hotio.pullio.notify=true"
+    - "org.hotio.pullio.update=true"
+    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+    - "traefik.enable=true"
+    - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.lan`)"
+    - "traefik.http.services.prowlarr.loadbalancer.server.port=9696" # Default Prowlarr port

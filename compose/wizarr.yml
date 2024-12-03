@@ -1,0 +1,8 @@
+services:
+  wizarr:
+    container_name: wizarr
+    image: ghcr.io/wizarrrr/wizarr:latest
+    ports:
+    - 5690:5690
+    volumes:
+    - ${APPDATA_PATH}/wizarr/database:/data/database
