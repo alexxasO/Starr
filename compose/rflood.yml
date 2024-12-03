@@ -1,0 +1,21 @@
+services:
+  rflood:
+    container_name: rflood
+    restart: unless-stopped
+    image: ghcr.io/hotio/rflood
+    ports:
+    - "3001:3000"
+    - "5000:5000"
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    - FLOOD_AUTH=true
+    volumes:
+    - ${APPDATA_PATH}/rflood:/config
+    - ${DATA_PATH}/torrents/blackhole:/config/download
+    labels:
+    - "org.hotio.pullio.notify=true"
+    - "org.hotio.pullio.update=true"
+    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"

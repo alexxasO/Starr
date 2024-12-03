@@ -1,0 +1,22 @@
+services:
+  radarr:
+    container_name: radarr
+    restart: unless-stopped
+    image: ghcr.io/hotio/radarr
+    ports:
+    - "7878:7878"
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    volumes:
+    - ${APPDATA_PATH}/radarr:/config
+    - ${DATA_PATH}:/data
+    - /mnt:/mnt
+    depends_on:
+    - rclone
+    labels:
+    - "org.hotio.pullio.notify=true"
+    - "org.hotio.pullio.update=true"
+    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"

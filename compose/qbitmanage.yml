@@ -1,0 +1,13 @@
+services:
+  qbitmanage:
+    container_name: qbitmanage
+    image: ghcr.io/hotio/qbitmanage
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    volumes:
+    - ${APPDATA_PATH}/qbitmanage:/config
+    - ${APPDATA_PATH}/qbittorrent:/qbittorrent
+    - ${DATA_PATH}:/data

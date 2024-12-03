@@ -1,0 +1,33 @@
+services:
+  plex:
+    container_name: plex
+    restart: unless-stopped
+    image: ghcr.io/hotio/plex
+    ports:
+    - "32400:32400"
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    - PLEX_CLAIM_TOKEN
+    - PLEX_ADVERTISE_URL
+    - PLEX_NO_AUTH_NETWORKS
+    - PLEX_BETA_INSTALL=false
+    - PLEX_PURGE_CODECS=false
+    volumes:
+    - ${APPDATA_PATH}/plex:/config
+    - ${TRANSCODE_PATH}:/transcode
+    - ${DATA_PATH}:/data
+    - /mnt:/mnt
+    healthcheck:
+      test: curl -f localhost:32400/web/index.html || exit 1
+      interval: 1m
+      timeout: 10s
+      retries: 5
+    depends_on:
+    - rclone
+    labels:
+    - "org.hotio.pullio.notify=true"
+    - "org.hotio.pullio.update=true"
+    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"

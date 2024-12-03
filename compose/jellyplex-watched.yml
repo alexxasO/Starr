@@ -1,0 +1,23 @@
+services:
+  jellyplex-watched:
+    container_name: jellyplex-watched
+    image: luigi311/jellyplex-watched:latest
+    volumes:
+    - ${APPDATA_PATH}/jellyplex-watched/.env:/app/.env
+    environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+    - UMASK=${UMASK}
+    - TZ=${TZ}
+    - PLEX_TOKEN=${PLEX_TOKEN}
+    depends_on:
+      jellyfin:
+        condition: service_healthy
+        restart: true
+      plex:
+        condition: service_healthy
+        restart: true
+    labels:
+    - "org.hotio.pullio.notify=true"
+    - "org.hotio.pullio.update=true"
+    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
