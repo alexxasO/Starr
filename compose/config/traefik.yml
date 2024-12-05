@@ -1,0 +1,34 @@
+api:
+  insecure: true # Exposes Traefik's dashboard (not recommended for production)
+log:
+  level: DEBUG # Set the logging level
+
+entryPoints:
+  web:
+    address: ":80" # HTTP entrypoint
+  websecure:
+    address: ":443" # HTTPS entrypoint
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: "alexis.jouquan@outlook.fr"
+      storage: "/etc/traefik/letsencrypt/acme.json"
+      httpChallenge:
+        entryPoint: "web"
+http:
+  middlewares:
+    noindex:
+      headers:
+        customResponseHeaders:
+          X-Robots-Tag: "noindex, nofollow"
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+providers:
+  docker:
+    exposedByDefault: false # Disable auto-exposing services, only expose them with labels
+  file:
+    filename: "/etc/traefik/traefik.yml"

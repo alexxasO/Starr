@@ -1,10 +1,10 @@
 services:
   prowlarr:
-    container_name: prowlarr
+    # container_name: prowlarr
     restart: unless-stopped
     image: ghcr.io/hotio/prowlarr
-    ports:
-    - "9696:9696"
+    # ports:
+    # - "9696:9696"
     environment:
     - PUID=${PUID}
     - PGID=${PGID}
@@ -20,5 +20,14 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.lan`)"
     - "traefik.http.services.prowlarr.loadbalancer.server.port=9696" # Default Prowlarr port
+
+    #HTTPS
+    - "traefik.http.routers.prowlarr.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.prowlarr.tls.certresolver=myresolver"
+
+    # HTTP to HTTPS Redirect Router
+    - "traefik.http.routers.prowlarr-redirect.rule=Host(`prowlarr.lan`)"
+    - "traefik.http.routers.prowlarr-redirect.entrypoints=web"
+    - "traefik.http.routers.prowlarr-redirect.middlewares=redirect-to-https@file"
     networks:
     - traefik-net
