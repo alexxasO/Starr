@@ -1,0 +1,675 @@
+{
+    "indexerUrls": [
+      "https://www.sharewood.tv/"
+    ],
+    "legacyUrls": [],
+    "definitionName": "sharewood-api",
+    "description": "sharewood is a Semi-Private FRENCH Torrent Tracker for GENERAL",
+    "language": "fr-FR",
+    "encoding": "Unicode (UTF-8)",
+    "enable": true,
+    "redirect": false,
+    "supportsRss": true,
+    "supportsSearch": true,
+    "supportsRedirect": false,
+    "supportsPagination": false,
+    "appProfileId": 1,
+    "protocol": "torrent",
+    "privacy": "semiPrivate",
+    "capabilities": {
+      "limitsMax": 100,
+      "limitsDefault": 100,
+      "categories": [
+        {
+          "id": 2000,
+          "name": "Movies",
+          "subCategories": [
+            {
+              "id": 2020,
+              "name": "Movies/Other",
+              "subCategories": []
+            }
+          ]
+        },
+        {
+          "id": 100009,
+          "name": "Films",
+          "subCategories": []
+        },
+        {
+          "id": 5000,
+          "name": "TV",
+          "subCategories": [
+            {
+              "id": 5070,
+              "name": "TV/Anime",
+              "subCategories": []
+            },
+            {
+              "id": 5080,
+              "name": "TV/Documentary",
+              "subCategories": []
+            },
+            {
+              "id": 5050,
+              "name": "TV/Other",
+              "subCategories": []
+            },
+            {
+              "id": 5060,
+              "name": "TV/Sport",
+              "subCategories": []
+            }
+          ]
+        },
+        {
+          "id": 100010,
+          "name": "Séries",
+          "subCategories": []
+        },
+        {
+          "id": 100011,
+          "name": "Films Animations",
+          "subCategories": []
+        },
+        {
+          "id": 100012,
+          "name": "Séries Animations",
+          "subCategories": []
+        },
+        {
+          "id": 100013,
+          "name": "Documentaires",
+          "subCategories": []
+        },
+        {
+          "id": 100014,
+          "name": "Emissions TV",
+          "subCategories": []
+        },
+        {
+          "id": 100015,
+          "name": "Spectacles/Concerts",
+          "subCategories": []
+        },
+        {
+          "id": 100016,
+          "name": "Sports",
+          "subCategories": []
+        },
+        {
+          "id": 3000,
+          "name": "Audio",
+          "subCategories": [
+            {
+              "id": 3020,
+              "name": "Audio/Video",
+              "subCategories": []
+            },
+            {
+              "id": 3050,
+              "name": "Audio/Other",
+              "subCategories": []
+            },
+            {
+              "id": 3030,
+              "name": "Audio/Audiobook",
+              "subCategories": []
+            }
+          ]
+        },
+        {
+          "id": 100017,
+          "name": "Karaoké Vidéo",
+          "subCategories": []
+        },
+        {
+          "id": 100018,
+          "name": "Karaoké",
+          "subCategories": []
+        },
+        {
+          "id": 100020,
+          "name": "Musiques",
+          "subCategories": []
+        },
+        {
+          "id": 100021,
+          "name": "Podcasts",
+          "subCategories": []
+        },
+        {
+          "id": 100022,
+          "name": "Samples",
+          "subCategories": []
+        },
+        {
+          "id": 100023,
+          "name": "Ebooks Audio",
+          "subCategories": []
+        },
+        {
+          "id": 7000,
+          "name": "Books",
+          "subCategories": [
+            {
+              "id": 7020,
+              "name": "Books/EBook",
+              "subCategories": []
+            },
+            {
+              "id": 7030,
+              "name": "Books/Comics",
+              "subCategories": []
+            },
+            {
+              "id": 7050,
+              "name": "Books/Other",
+              "subCategories": []
+            },
+            {
+              "id": 7010,
+              "name": "Books/Mags",
+              "subCategories": []
+            }
+          ]
+        },
+        {
+          "id": 100024,
+          "name": "BDs",
+          "subCategories": []
+        },
+        {
+          "id": 100025,
+          "name": "Comics",
+          "subCategories": []
+        },
+        {
+          "id": 100026,
+          "name": "Mangas",
+          "subCategories": []
+        },
+        {
+          "id": 100027,
+          "name": "Livres",
+          "subCategories": []
+        },
+        {
+          "id": 100028,
+          "name": "Presse",
+          "subCategories": []
+        },
+        {
+          "id": 4000,
+          "name": "PC",
+          "subCategories": [
+            {
+              "id": 4010,
+              "name": "PC/0day",
+              "subCategories": []
+            },
+            {
+              "id": 4030,
+              "name": "PC/Mac",
+              "subCategories": []
+            },
+            {
+              "id": 4060,
+              "name": "PC/Mobile-iOS",
+              "subCategories": []
+            },
+            {
+              "id": 4070,
+              "name": "PC/Mobile-Android",
+              "subCategories": []
+            },
+            {
+              "id": 4040,
+              "name": "PC/Mobile-Other",
+              "subCategories": []
+            },
+            {
+              "id": 4050,
+              "name": "PC/Games",
+              "subCategories": []
+            }
+          ]
+        },
+        {
+          "id": 100029,
+          "name": "Applications Linux",
+          "subCategories": []
+        },
+        {
+          "id": 100030,
+          "name": "Applications Windows",
+          "subCategories": []
+        },
+        {
+          "id": 100031,
+          "name": "Applications Mac",
+          "subCategories": []
+        },
+        {
+          "id": 100034,
+          "name": "Applications Smartphone/Tablette",
+          "subCategories": []
+        },
+        {
+          "id": 100034,
+          "name": "Applications Smartphone/Tablette",
+          "subCategories": []
+        },
+        {
+          "id": 100035,
+          "name": "GPS",
+          "subCategories": []
+        },
+        {
+          "id": 100036,
+          "name": "Jeux Linux",
+          "subCategories": []
+        },
+        {
+          "id": 100037,
+          "name": "Jeux Windows",
+          "subCategories": []
+        },
+        {
+          "id": 100038,
+          "name": "Jeux Mac",
+          "subCategories": []
+        },
+        {
+          "id": 1000,
+          "name": "Console",
+          "subCategories": [
+            {
+              "id": 1010,
+              "name": "Console/NDS",
+              "subCategories": []
+            },
+            {
+              "id": 1030,
+              "name": "Console/Wii",
+              "subCategories": []
+            },
+            {
+              "id": 1060,
+              "name": "Console/Wiiware",
+              "subCategories": []
+            },
+            {
+              "id": 1110,
+              "name": "Console/3DS",
+              "subCategories": []
+            },
+            {
+              "id": 1130,
+              "name": "Console/WiiU",
+              "subCategories": []
+            },
+            {
+              "id": 1180,
+              "name": "Console/PS4",
+              "subCategories": []
+            }
+          ]
+        },
+        {
+          "id": 100039,
+          "name": "Jeux Nintendo",
+          "subCategories": []
+        },
+        {
+          "id": 100039,
+          "name": "Jeux Nintendo",
+          "subCategories": []
+        },
+        {
+          "id": 100039,
+          "name": "Jeux Nintendo",
+          "subCategories": []
+        },
+        {
+          "id": 100039,
+          "name": "Jeux Nintendo",
+          "subCategories": []
+        },
+        {
+          "id": 100039,
+          "name": "Jeux Nintendo",
+          "subCategories": []
+        },
+        {
+          "id": 100040,
+          "name": "Jeux Sony",
+          "subCategories": []
+        },
+        {
+          "id": 100041,
+          "name": "Jeux Smartphone/Tablette",
+          "subCategories": []
+        },
+        {
+          "id": 100042,
+          "name": "Jeux Microsoft",
+          "subCategories": []
+        },
+        {
+          "id": 8000,
+          "name": "Other",
+          "subCategories": [
+            {
+              "id": 8010,
+              "name": "Other/Misc",
+              "subCategories": []
+            }
+          ]
+        },
+        {
+          "id": 100043,
+          "name": "Rétrogaming & Emulation",
+          "subCategories": []
+        },
+        {
+          "id": 6000,
+          "name": "XXX",
+          "subCategories": [
+            {
+              "id": 6070,
+              "name": "XXX/Other",
+              "subCategories": []
+            },
+            {
+              "id": 6060,
+              "name": "XXX/ImageSet",
+              "subCategories": []
+            }
+          ]
+        },
+        {
+          "id": 100044,
+          "name": "Films XXX",
+          "subCategories": []
+        },
+        {
+          "id": 100045,
+          "name": "XXX Hentai",
+          "subCategories": []
+        },
+        {
+          "id": 100047,
+          "name": "XXX Images",
+          "subCategories": []
+        },
+        {
+          "id": 100048,
+          "name": "XXX Jeux-Vidéo",
+          "subCategories": []
+        },
+        {
+          "id": 100049,
+          "name": "Formations Vidéos",
+          "subCategories": []
+        },
+        {
+          "id": 100050,
+          "name": "Formations Logiciels",
+          "subCategories": []
+        },
+        {
+          "id": 100051,
+          "name": "XXX Ebooks",
+          "subCategories": []
+        },
+        {
+          "id": 100052,
+          "name": "Vidéos-Clips",
+          "subCategories": []
+        }
+      ],
+      "supportsRawSearch": true,
+      "searchParams": [
+        "q",
+        "q"
+      ],
+      "tvSearchParams": [
+        "q",
+        "season",
+        "ep"
+      ],
+      "movieSearchParams": [
+        "q"
+      ],
+      "musicSearchParams": [
+        "q"
+      ],
+      "bookSearchParams": [
+        "q"
+      ]
+    },
+    "priority": 20,
+    "downloadClientId": 0,
+    "added": "2024-10-09T22:51:47Z",
+    "sortName": "sharewood api",
+    "name": "Sharewood (API)",
+    "fields": [
+      {
+        "order": 0,
+        "name": "definitionFile",
+        "value": "sharewood-api",
+        "type": "textbox",
+        "advanced": false,
+        "hidden": "hidden",
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 1,
+        "name": "baseUrl",
+        "label": "Base Url",
+        "helpText": "Select which base url Prowlarr will use for requests to the site",
+        "value": "https://www.sharewood.tv/",
+        "type": "select",
+        "advanced": false,
+        "selectOptionsProviderAction": "getUrls",
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 2,
+        "name": "baseSettings.queryLimit",
+        "label": "Query Limit",
+        "helpText": "The number of max queries as specified by the respective unit that Prowlarr will allow to the site",
+        "type": "number",
+        "advanced": true,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 3,
+        "name": "baseSettings.grabLimit",
+        "label": "Grab Limit",
+        "helpText": "The number of max grabs as specified by the respective unit that Prowlarr will allow to the site",
+        "type": "number",
+        "advanced": true,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 4,
+        "name": "baseSettings.limitsUnit",
+        "label": "Limits Unit",
+        "helpText": "The unit of time for counting limits per indexer",
+        "value": 0,
+        "type": "select",
+        "advanced": true,
+        "selectOptions": [
+          {
+            "value": 0,
+            "name": "Day",
+            "order": 0,
+            "hint": "(0)"
+          },
+          {
+            "value": 1,
+            "name": "Hour",
+            "order": 1,
+            "hint": "(1)"
+          }
+        ],
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 5,
+        "name": "torrentBaseSettings.appMinimumSeeders",
+        "label": "Apps Minimum Seeders",
+        "helpText": "Minimum seeders required by the Applications for the indexer to grab, empty is Sync profile's default",
+        "type": "number",
+        "advanced": true,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 6,
+        "name": "torrentBaseSettings.seedRatio",
+        "label": "Seed Ratio",
+        "helpText": "The ratio a torrent should reach before stopping, empty uses the download client's default. Ratio should be at least 1.0 and follow the indexers rules",
+        "type": "number",
+        "advanced": false,
+        "privacy": "normal",
+        "isFloat": true
+      },
+      {
+        "order": 7,
+        "name": "torrentBaseSettings.seedTime",
+        "label": "Seed Time",
+        "unit": "minutes",
+        "helpText": "The time a torrent should be seeded before stopping, empty uses the download client's default",
+        "type": "number",
+        "advanced": true,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 8,
+        "name": "torrentBaseSettings.packSeedTime",
+        "label": "Pack Seed Time",
+        "unit": "minutes",
+        "helpText": "The time a pack (season or discography) torrent should be seeded before stopping, empty is app's default",
+        "type": "number",
+        "advanced": true,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 9,
+        "name": "torrentBaseSettings.preferMagnetUrl",
+        "label": "Prefer Magnet URL",
+        "helpText": "When enabled, this indexer will prefer the use of magnet URLs for grabs with fallback to torrent links",
+        "value": false,
+        "type": "checkbox",
+        "advanced": true,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 0,
+        "name": "passkey",
+        "label": "Passkey",
+        "value": "$PASSKEY",
+        "type": "textbox",
+        "advanced": false,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 1,
+        "name": "info_passkey",
+        "label": "About your Passkey",
+        "value": "Find your Passkey by accessing your <a href=\"https://www.sharewood.tv/\" target=\"_blank\">Sharewood</a> profile on the <i>My Profile</i> page and scrolling down to the <b>Passkey</b> field.",
+        "type": "info",
+        "advanced": false,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 2,
+        "name": "freeleech",
+        "label": "Search freeleech only",
+        "value": false,
+        "type": "checkbox",
+        "advanced": false,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 3,
+        "name": "multilang",
+        "label": "Replace MULTi by another language in release name",
+        "value": false,
+        "type": "checkbox",
+        "advanced": false,
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 4,
+        "name": "multilanguage",
+        "label": "Replace MULTi by this language",
+        "value": 1,
+        "type": "select",
+        "advanced": false,
+        "selectOptions": [
+          {
+            "value": 0,
+            "name": "ENGLISH",
+            "order": 0
+          },
+          {
+            "value": 1,
+            "name": "FRENCH",
+            "order": 0
+          },
+          {
+            "value": 2,
+            "name": "MULTi ENGLISH",
+            "order": 0
+          },
+          {
+            "value": 3,
+            "name": "MULTi FRENCH",
+            "order": 0
+          },
+          {
+            "value": 4,
+            "name": "MULTi VOSTFR",
+            "order": 0
+          },
+          {
+            "value": 5,
+            "name": "VOSTFR",
+            "order": 0
+          }
+        ],
+        "privacy": "normal",
+        "isFloat": false
+      },
+      {
+        "order": 5,
+        "name": "vostfr",
+        "label": "Replace VOSTFR and SUBFRENCH with ENGLISH",
+        "value": false,
+        "type": "checkbox",
+        "advanced": false,
+        "privacy": "normal",
+        "isFloat": false
+      }
+    ],
+    "implementationName": "Cardigann",
+    "implementation": "Cardigann",
+    "configContract": "CardigannSettings",
+    "infoLink": "https://wiki.servarr.com/prowlarr/supported-indexers#sharewood-api"
+  }
