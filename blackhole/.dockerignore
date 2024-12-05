@@ -1,0 +1,8 @@
+.env
+.env.template
+.gitignore
+docker-compose.yml
+Dockerfile.*
+README.md
+shared/tokens.json
+sockets/
