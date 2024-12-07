@@ -1,10 +1,10 @@
 services:
   jellyfin:
-    container_name: jellyfin
+    # container_name: jellyfin
     restart: unless-stopped
     image: ghcr.io/hotio/jellyfin
-    ports:
-    - "8096:8096"
+    # ports:
+    # - "8096:8096"
     environment:
     - PUID=${PUID}
     - PGID=${PGID}
@@ -14,6 +14,21 @@ services:
     - ${APPDATA_PATH}/jellyfin:/config
     - ${DATA_PATH}:/data
     - /mnt:/mnt
+    deploy:
+      mode: replicated
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+        failure_action: rollback
+        monitor: 1m
+        max_failure_ratio: 0.3
     healthcheck:
       test: curl -f localhost:8096/web/index.html || exit 1
       interval: 1m
@@ -23,7 +38,18 @@ services:
       rclone:
         condition: service_healthy
         restart: true
+    networks:
+    - traefik-net
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+    - "traefik.enable=true"
+    - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.lan`)"
+    - "traefik.http.services.jellyfin.loadbalancer.server.port=8096" # Default Jellyfin port
+    - "traefik.http.routers.jellyfin.middlewares=noindex@file"
+    # - "traefik.http.routers.jellyfin.middlewares=noindex@file,redirect-to-https@file"
+    # - "traefik.http.routers.jellyfin.tls.certresolver=myresolver"
+    # - "traefik.http.routers.jellyfin-redirect.rule=Host(`jellyfin.lan`)"
+    # - "traefik.http.routers.jellyfin-redirect.entrypoints=web"
+    # - "traefik.http.routers.jellyfin-redirect.middlewares=redirect-to-https@file"
