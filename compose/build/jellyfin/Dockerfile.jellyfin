@@ -1,0 +1,17 @@
+# Use the official Jellyfin image from Docker Hub
+FROM ghcr.io/hotio/jellyfin
+
+WORKDIR /custom-scripts
+
+COPY global_annouce.html .
+COPY snowflakes.html .
+
+# RUN CONTENT=$(cat snowflakes.html) && \
+#     ESCAPED_CONTENT=$(echo "$CONTENT" | sed 's/[\/&]/\\&/g') && \
+#     sed -i "s|</body>|$ESCAPED_CONTENT</body>|g" /usr/share/jellyfin/web/index.html
+
+# Use awk instead since it handles HTML content better
+RUN CONTENT=$(cat snowflakes.html) && \
+    awk -v content="$CONTENT" '{gsub(/<\/body>/, content "</body>"); print}' \
+    /usr/share/jellyfin/web/index.html > /tmp/index.html && \
+    mv /tmp/index.html /usr/share/jellyfin/web/index.html
