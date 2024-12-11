@@ -3,6 +3,14 @@ FROM ghcr.io/hotio/jellyfin
 
 WORKDIR /usr/share/jellyfin/web
 
+# Add Content featured bar
+RUN mkdir -p ./ui
+COPY featured_content.html ./ui/spotlight.html
+COPY home-html.chunk.js ./ui/home-html.chunk.js
+
+RUN FILE_TO_MODIFY=$(ls | grep home-html) && \
+    cat ./ui/home-html.chunk.js > $FILE_TO_MODIFY
+
 #Install the featured content
 # RUN wget https://raw.githubusercontent.com/BobHasNoSoul/jellyfin-featured/refs/heads/main/autoInstall.sh
 # RUN chmod +x autoInstall.sh

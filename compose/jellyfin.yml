@@ -17,6 +17,7 @@ services:
     - ${APPDATA_PATH}/jellyfin:/config
     - ${DATA_PATH}:/data
     - /mnt:/mnt
+    - ${APPDATA_PATH}/jellyfin/featured-content/List.txt:/usr/share/jellyfin/web/ui/List.txt
     # deploy:
     #   mode: replicated
     #   replicas: 3
@@ -50,8 +51,7 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.lan`)"
     - "traefik.http.services.jellyfin.loadbalancer.server.port=8096" # Default Jellyfin port
-    - "traefik.http.routers.jellyfin.middlewares=noindex@file"
-    # - "traefik.http.routers.jellyfin.middlewares=noindex@file,redirect-to-https@file"
+    # - "traefik.http.routers.jellyfin.middlewares=noindex@file"
     # - "traefik.http.routers.jellyfin.tls.certresolver=myresolver"
     # - "traefik.http.routers.jellyfin-redirect.rule=Host(`jellyfin.lan`)"
     # - "traefik.http.routers.jellyfin-redirect.entrypoints=web"
