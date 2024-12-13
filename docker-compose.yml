@@ -1,4 +1,5 @@
 include:
+  - blackhole/docker-compose.yml
   - compose/bazarr.yml
   - compose/flaresolverr.yml
   - compose/gotify.yml
@@ -8,6 +9,7 @@ include:
   - compose/jellyseer.yml
   - compose/jellystat.yml
   - compose/jfa-go.yml
+  - compose/kuma.yml
   - compose/plex.yml
   - compose/plexautolanguage.yml
   - compose/prowlarr.yml
@@ -15,15 +17,13 @@ include:
   - compose/qbittorrent.yml
   - compose/radarr.yml
   - compose/rflood.yml
+  - compose/socket-proxy.yml
   - compose/sonarr.yml
   - compose/tautulli.yml
   - compose/unmanic.yml
   - compose/wizarr.yml
   - compose/traefik.yml
   - zurg/docker-compose.yml
-  - blackhole/docker-compose.yml
-  - compose/kuma.yml
-  - compose/socket-proxy.yml
 
 networks:
   traefik-net:
