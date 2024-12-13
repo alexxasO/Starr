@@ -56,3 +56,17 @@ services:
     # - "traefik.http.routers.jellyfin-redirect.rule=Host(`jellyfin.lan`)"
     # - "traefik.http.routers.jellyfin-redirect.entrypoints=web"
     # - "traefik.http.routers.jellyfin-redirect.middlewares=redirect-to-https@file"
+
+
+  jellyfin_exporter:
+    image: rebelcore/jellyfin-exporter:v1.3.2
+    container_name: jellyfin_exporter
+    profiles: [ monitor, all ]
+    command:
+    - '--jellyfin.address=http://jellyfin:8096'
+    - '--jellyfin.token=${JELLYFIN_TOKEN}'
+    ports:
+    - 9594:9594
+    networks:
+    - traefik-net
+    restart: unless-stopped
