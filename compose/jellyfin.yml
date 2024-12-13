@@ -18,6 +18,7 @@ services:
     - ${DATA_PATH}:/data
     - /mnt:/mnt
     - ${APPDATA_PATH}/jellyfin/featured-content/List.txt:/usr/share/jellyfin/web/ui/List.txt
+    - ${APPDATA_PATH}/jellyfin/featured-content/spotlight.html:/usr/share/jellyfin/web/ui/spotlight.html
     # deploy:
     #   mode: replicated
     #   replicas: 3

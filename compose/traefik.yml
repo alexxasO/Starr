@@ -16,6 +16,8 @@ services:
     networks:
     - traefik-net
     - socket-proxy
+    depends_on:
+    - socket-proxy
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.traefik.rule=Host(`traefik.lan`)" # Route for Traefik

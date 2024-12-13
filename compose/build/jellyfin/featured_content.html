@@ -85,9 +85,41 @@
 		@keyframes fadeIn { to { opacity: 1;} }
 		.text-container::after { opacity: 0.7; animation: fadeIn 1.5s ease-in forwards; animation-delay: 1s;}
 		@keyframes fadeIn { to { opacity: 1;} }
+
+		/* TODO Announcement banner style */
     </style>
 </head>
 <body>
+	<div id="announcementBanner" style="
+		background-color: #2b303b;
+		color: #ffffff;
+		border: 1px solid #4c566a;
+		border-radius: 4px;
+		padding: 16px;
+		font-family: 'Roboto', sans-serif;
+		font-size: 16px;
+		text-align: center;
+		margin: 10px 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	">
+		<span id="announcementText" style="flex-grow: 1;">
+			🚀 Welcome to Jellyfin! Check out the latest updates and features.
+		</span>
+		<button id="closeAnnouncement" style="
+			background: none;
+			border: none;
+			color: #ffffff;
+			font-size: 20px;
+			cursor: pointer;
+			padding: 0 8px;
+		" aria-label="Close announcement">
+			&times;
+		</button>
+	</div>
+
+	<h2 class="sectionTitle sectionTitle-cards padded-left" style="color: rgba(255, 255, 255, 0.8);">A l'affiche</h2>
 	<div id="slides-container"></div>
 	    <div id="video-overlay" style="display: none;">
         <div id="video-overlay-content">
@@ -96,7 +128,7 @@
         </div>
     </div>
     <script>
-		let title = 'Spotlight', moviesSeriesBoth = 3, shuffleInterval = 15000, plotMaxLength = 550, token = 'a1975a2941f448ba811ba2981c6afa4f', useTrailers = true;
+		let title = 'Spotlight', moviesSeriesBoth = 3, shuffleInterval = 15000, plotMaxLength = 550, token = 'a1975a2941f448ba811ba2981c6afa4f', useTrailers = false;
 		let trailerMaxLength = 0; // Default value 0; length measured in ms
 		let isChangingSlide = false, player = null, slideChangeTimeout = null, isHomePageActive = false, showOnOtherPages = false;
 		let currentLocation = window.top.location.href;
@@ -683,6 +715,22 @@
 		window.addEventListener('unload', cleanup);
 		window.addEventListener('popstate', checkNavigation);
     </script>
+	<script>
+		// <!-- TODO Announcement banner script -->
+		const announcementBanner = document.getElementById('announcementBanner');
+		const announcementText = 'This is an announcement banner.';
+
+		if (announcementText) {
+			announcementBanner.innerHTML = announcementText;
+		}
+	</script>
+
+	<script>
+		// Script to handle the close button
+		document.getElementById('closeAnnouncement').addEventListener('click', function() {
+			document.getElementById('announcementBanner').style.display = 'none';
+		});
+	</script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
