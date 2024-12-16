@@ -85,9 +85,7 @@
 		@keyframes fadeIn { to { opacity: 1;} }
 		.text-container::after { opacity: 0.7; animation: fadeIn 1.5s ease-in forwards; animation-delay: 1s;}
 		@keyframes fadeIn { to { opacity: 1;} }
-
-		/* TODO Announcement banner style */
-    </style>
+	</style>
 </head>
 <body>
 	<div id="announcementBanner" style="
@@ -103,10 +101,10 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		overflow: hidden;
+		white-space: nowrap;
 	">
-		<span id="announcementText" style="flex-grow: 1;">
-			🚀 Welcome to Jellyfin! Check out the latest updates and features.
-		</span>
+		<span id="announcementText" style="flex-grow: 1;"></span>
 		<button id="closeAnnouncement" style="
 			background: none;
 			border: none;
@@ -119,7 +117,6 @@
 		</button>
 	</div>
 
-	<h2 class="sectionTitle sectionTitle-cards padded-left" style="color: rgba(255, 255, 255, 0.8);">A l'affiche</h2>
 	<div id="slides-container"></div>
 	    <div id="video-overlay" style="display: none;">
         <div id="video-overlay-content">
@@ -717,8 +714,8 @@
     </script>
 	<script>
 		// <!-- TODO Announcement banner script -->
-		const announcementBanner = document.getElementById('announcementBanner');
-		const announcementText = 'This is an announcement banner.';
+		const announcementBanner = document.getElementById('announcementText');
+		const announcementText = 'Un Discord à été mis en place par ici : <a href="https://discord.antxis.fr">https://discord.antxis.fr</a>';
 
 		if (announcementText) {
 			announcementBanner.innerHTML = announcementText;

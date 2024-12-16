@@ -5,8 +5,8 @@ WORKDIR /usr/share/jellyfin/web
 
 # Add Content featured bar
 RUN mkdir -p ./ui
-COPY featured_content.html ./ui/spotlight.html
-COPY home-html.chunk.js ./ui/home-html.chunk.js
+COPY ./includes/featured_content.html ./ui/spotlight.html
+COPY ./includes/home-html.chunk.js ./ui/home-html.chunk.js
 
 RUN FILE_TO_MODIFY=$(ls | grep home-html) && \
     cat ./ui/home-html.chunk.js > $FILE_TO_MODIFY
@@ -27,9 +27,8 @@ WORKDIR /custom-scripts
 # RUN curl -fsSL https://raw.githubusercontent.com/AECX/FinTube/master/manifest.json -o /config/plugins/FinTube/manifest.json
 
 # Copy the custom scripts
-COPY global_annouce.html .
-COPY snowflakes.html .
-COPY change_page_title.html .
+COPY ./includes/snowflakes.html .
+COPY ./includes/change_page_title.html .
 
 RUN CONTENT=$(cat snowflakes.html) && \
     awk -v content="$CONTENT" '{gsub(/<\/body>/, content "</body>"); print}' \
