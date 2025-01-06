@@ -88,35 +88,6 @@
 	</style>
 </head>
 <body>
-	<div id="announcementBanner" style="
-		background-color: #2b303b;
-		color: #ffffff;
-		border: 1px solid #4c566a;
-		border-radius: 4px;
-		padding: 16px;
-		font-family: 'Roboto', sans-serif;
-		font-size: 16px;
-		text-align: center;
-		margin: 10px 0;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		overflow: hidden;
-		white-space: nowrap;
-	">
-		<span id="announcementText" style="flex-grow: 1;"></span>
-		<button id="closeAnnouncement" style="
-			background: none;
-			border: none;
-			color: #ffffff;
-			font-size: 20px;
-			cursor: pointer;
-			padding: 0 8px;
-		" aria-label="Close announcement">
-			&times;
-		</button>
-	</div>
-
 	<div id="slides-container"></div>
 	    <div id="video-overlay" style="display: none;">
         <div id="video-overlay-content">
@@ -712,22 +683,6 @@
 		window.addEventListener('unload', cleanup);
 		window.addEventListener('popstate', checkNavigation);
     </script>
-	<script>
-		// <!-- TODO Announcement banner script -->
-		const announcementBanner = document.getElementById('announcementText');
-		const announcementText = 'Un Discord à été mis en place par ici : <a href="https://discord.antxis.fr">https://discord.antxis.fr</a>';
-
-		if (announcementText) {
-			announcementBanner.innerHTML = announcementText;
-		}
-	</script>
-
-	<script>
-		// Script to handle the close button
-		document.getElementById('closeAnnouncement').addEventListener('click', function() {
-			document.getElementById('announcementBanner').style.display = 'none';
-		});
-	</script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>

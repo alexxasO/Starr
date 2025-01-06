@@ -16,7 +16,10 @@ services:
     volumes:
     - ${APPDATA_PATH}/jellyfin:/config
     - ${DATA_PATH}:/data
+    - ${APPDATA_PATH}/jellyfin/featured-content/List.txt:/usr/share/jellyfin/web/ui/List.txt
     - /mnt:/mnt
+    ports:
+    - 8096:8096
     healthcheck:
       test: curl -f localhost:8096/web/index.html || exit 1
       interval: 1m
@@ -40,21 +43,21 @@ services:
     # - "traefik.http.routers.jellyfin-redirect.rule=Host(`jellyfin.lan`)"
     # - "traefik.http.routers.jellyfin-redirect.entrypoints=web"
     # - "traefik.http.routers.jellyfin-redirect.middlewares=redirect-to-https@file"
-    deploy:
-      mode: replicated
-      replicas: 3
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      update_config:
-        parallelism: 1
-        delay: 10s
-        order: start-first
-        failure_action: rollback
-        monitor: 1m
-        max_failure_ratio: 0.3
+    # deploy:
+    #   mode: replicated
+    #   replicas: 3
+    #   restart_policy:
+    #     condition: on-failure
+    #     delay: 5s
+    #     max_attempts: 3
+    #     window: 120s
+    #   update_config:
+    #     parallelism: 1
+    #     delay: 10s
+    #     order: start-first
+    #     failure_action: rollback
+    #     monitor: 1m
+    #     max_failure_ratio: 0.3
 
   jellyfin_exporter:
     image: rebelcore/jellyfin-exporter:v1.3.2

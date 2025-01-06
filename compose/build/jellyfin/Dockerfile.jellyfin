@@ -3,6 +3,12 @@ FROM ghcr.io/hotio/jellyfin
 
 WORKDIR /usr/share/jellyfin/web
 
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    jq \
+    imagemagick \
+    exiftool
+
 # Add Content featured bar
 RUN mkdir -p ./ui
 COPY ./includes/featured_content.html ./ui/spotlight.html
@@ -27,13 +33,13 @@ WORKDIR /custom-scripts
 # RUN curl -fsSL https://raw.githubusercontent.com/AECX/FinTube/master/manifest.json -o /config/plugins/FinTube/manifest.json
 
 # Copy the custom scripts
-COPY ./includes/snowflakes.html .
+# COPY ./includes/snowflakes.html .
 COPY ./includes/change_page_title.html .
 
-RUN CONTENT=$(cat snowflakes.html) && \
-    awk -v content="$CONTENT" '{gsub(/<\/body>/, content "</body>"); print}' \
-    /usr/share/jellyfin/web/index.html > /tmp/index.html && \
-    mv /tmp/index.html /usr/share/jellyfin/web/index.html
+# RUN CONTENT=$(cat snowflakes.html) && \
+#     awk -v content="$CONTENT" '{gsub(/<\/body>/, content "</body>"); print}' \
+#     /usr/share/jellyfin/web/index.html > /tmp/index.html && \
+#     mv /tmp/index.html /usr/share/jellyfin/web/index.html
 
 RUN CONTENT=$(cat change_page_title.html) && \
     awk -v content="$CONTENT" '{gsub(/<\/body>/, content "</body>"); print}' \
