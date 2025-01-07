@@ -16,6 +16,11 @@ services:
     - /mnt:/mnt
     depends_on:
     - rclone
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8989"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
     networks:
     - traefik-net
     labels:

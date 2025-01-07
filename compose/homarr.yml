@@ -1,16 +1,16 @@
-services:
-  homarr:
-    container_name: homarr
-    image: ghcr.io/ajnart/homarr:latest
-    restart: unless-stopped
-    volumes:
-    - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
-    - ${APPDATA_PATH}/homarr/config:/app/data/configs
-    - ${APPDATA_PATH}/homarr/icons:/app/public/icons
-    - ${APPDATA_PATH}/homarr/data:/data
-    ports:
-    - '7575:7575'
-    labels:
-    - "org.hotio.pullio.notify=true"
-    - "org.hotio.pullio.update=true"
-    - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+# services:
+  # homarr:
+  #   container_name: homarr
+  #   image: ghcr.io/ajnart/homarr:latest
+  #   restart: unless-stopped
+  #   volumes:
+  #   - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+  #   - ${APPDATA_PATH}/homarr/config:/app/data/configs
+  #   - ${APPDATA_PATH}/homarr/icons:/app/public/icons
+  #   - ${APPDATA_PATH}/homarr/data:/data
+  #   ports:
+  #   - '7575:7575'
+  #   labels:
+  #   - "org.hotio.pullio.notify=true"
+  #   - "org.hotio.pullio.update=true"
+  #   - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"

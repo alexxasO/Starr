@@ -15,7 +15,16 @@ services:
     volumes:
     - ${APPDATA_PATH}/rflood:/config
     - ${DATA_PATH}/torrents/blackhole:/config/download
+    networks:
+    - traefik-net
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+    - "traefik.enable=true"
+    - "traefik.http.routers.rflood.rule=Host(`rflood.${DOMAIN}`)"
+    - "traefik.http.services.rflood.loadbalancer.server.port=3000"
+    - "traefik.http.routers.rflood.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.rflood.tls.certresolver=myresolver"
+    - "traefik.http.routers.rflood-redirect.rule=Host(`rflood.${DOMAIN}`)"
+    - "traefik.http.routers.rflood-redirect.entrypoints=web"

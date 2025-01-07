@@ -18,6 +18,11 @@ services:
     - /mnt:/mnt
     depends_on:
     - rclone
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7878"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"

@@ -8,3 +8,13 @@ services:
     - ${APPDATA_PATH}/jfa-go:/data
     - ${APPDATA_PATH}/jellyfin:/jf
     - /etc/localtime:/etc/localtime:ro
+    networks:
+    - traefik-net
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.jfa-go.rule=Host(`jfa-go.${DOMAIN}`)"
+    - "traefik.http.services.jfa-go.loadbalancer.server.port=8056"
+    - "traefik.http.routers.jfa-go.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.jfa-go.tls.certresolver=myresolver"
+    - "traefik.http.routers.jfa-go-redirect.rule=Host(`jfa-go.${DOMAIN}`)"
+    - "traefik.http.routers.jfa-go-redirect.entrypoints=web"

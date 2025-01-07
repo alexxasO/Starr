@@ -23,6 +23,16 @@ services:
     depends_on:
     - jellystat-db
     restart: unless-stopped
+    networks:
+    - traefik-net
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.jellystat.rule=Host(`jellystat.${DOMAIN}`)"
+    - "traefik.http.services.jellystat.loadbalancer.server.port=3000"
+    - "traefik.http.routers.jellystat.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.jellystat.tls.certresolver=myresolver"
+    - "traefik.http.routers.jellystat-redirect.rule=Host(`jellystat.${DOMAIN}`)"
+    - "traefik.http.routers.jellystat-redirect.entrypoints=web"
 
 volumes:
   jellystat:

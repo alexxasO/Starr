@@ -11,7 +11,16 @@ services:
     - TZ=${TZ}
     volumes:
     - ${APPDATA_PATH}/gotify:/app/data
+    networks:
+    - traefik-net
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+    - "traefik.enable=true"
+    - "traefik.http.routers.gotify.rule=Host(`gotify.${DOMAIN}`)"
+    - "traefik.http.services.gotify.loadbalancer.server.port=80"
+    - "traefik.http.routers.gotify.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.gotify.tls.certresolver=myresolver"
+    - "traefik.http.routers.gotify-redirect.rule=Host(`gotify.${DOMAIN}`)"
+    - "traefik.http.routers.gotify-redirect.entrypoints=web"

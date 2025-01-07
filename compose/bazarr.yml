@@ -16,8 +16,19 @@ services:
     - ${DATA_PATH}:/data
     - /mnt:/mnt
     depends_on:
-    - rclone
+      rclone:
+        condition: service_healthy
+        restart: true
+    networks:
+    - traefik-net
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+    - "traefik.enable=true"
+    - "traefik.http.routers.bazarr.rule=Host(`bazarr.${DOMAIN}`)"
+    - "traefik.http.services.bazarr.loadbalancer.server.port=6767"
+    - "traefik.http.routers.bazarr.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.bazarr.tls.certresolver=myresolver"
+    - "traefik.http.routers.bazarr-redirect.rule=Host(`bazarr.${DOMAIN}`)"
+    - "traefik.http.routers.bazarr-redirect.entrypoints=web"

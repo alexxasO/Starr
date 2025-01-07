@@ -27,7 +27,16 @@ services:
       retries: 5
     depends_on:
     - rclone
+    networks:
+    - traefik-net
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+    - "traefik.enable=true"
+    - "traefik.http.routers.plex.rule=Host(`plex.lan`)"
+    - "traefik.http.services.plex.loadbalancer.server.port=32400"
+    - "traefik.http.routers.plex.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.plex.tls.certresolver=myresolver"
+    - "traefik.http.routers.plex-redirect.rule=Host(`plex.lan`)"
+    - "traefik.http.routers.plex-redirect.entrypoints=web"
