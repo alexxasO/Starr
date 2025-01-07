@@ -19,7 +19,11 @@ services:
     - "org.hotio.pullio.update=false"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
     - "traefik.enable=true"
-    - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.lan`)"
-    - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080" # Default qBittorrent port
+    - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)"
+    - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
+    - "traefik.http.routers.qbittorrent.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.qbittorrent.tls.certresolver=myresolver"
+    - "traefik.http.routers.qbittorrent-redirect.rule=Host(`qbittorrent.${DOMAIN}`)"
+    - "traefik.http.routers.qbittorrent-redirect.entrypoints=web"
     networks:
     - traefik-net

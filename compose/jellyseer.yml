@@ -13,9 +13,22 @@ services:
     volumes:
     - ${APPDATA_PATH}/jellyseerr:/config
     depends_on:
-    - sonarr
-    - jellyfin
+      sonarr:
+        condition: service_healthy
+        restart: true
+      jellyfin:
+        condition: service_healthy
+        restart: true
+    networks:
+    - traefik-net
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+    - "traefik.enable=true"
+    - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.${DOMAIN}`)"
+    - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
+    - "traefik.http.routers.jellyseerr.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.jellyseerr.tls.certresolver=myresolver"
+    - "traefik.http.routers.jellyseerr-redirect.rule=Host(`jellyseerr.${DOMAIN}`)"
+    - "traefik.http.routers.jellyseerr-redirect.entrypoints=web"

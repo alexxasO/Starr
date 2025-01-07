@@ -6,3 +6,13 @@ services:
     - 5690:5690
     volumes:
     - ${APPDATA_PATH}/wizarr/database:/data/database
+    networks:
+    - traefik-net
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.wizarr.rule=Host(`wizarr.${DOMAIN}`)"
+    - "traefik.http.services.wizarr.loadbalancer.server.port=5690"
+    - "traefik.http.routers.wizarr.middlewares=noindex@file,redirect-to-https@file"
+    - "traefik.http.routers.wizarr.tls.certresolver=myresolver"
+    - "traefik.http.routers.wizarr-redirect.rule=Host(`wizarr.${DOMAIN}`)"
+    - "traefik.http.routers.wizarr-redirect.entrypoints=web"
