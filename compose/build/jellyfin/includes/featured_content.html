@@ -96,7 +96,7 @@
         </div>
     </div>
     <script>
-		let title = 'Spotlight', moviesSeriesBoth = 3, shuffleInterval = 15000, plotMaxLength = 550, token = 'a1975a2941f448ba811ba2981c6afa4f', useTrailers = false;
+		let title = 'Spotlight', moviesSeriesBoth = 3, shuffleInterval = 15000, plotMaxLength = 550, token = 'cd11970a300f487c8c9f46c24027ed86', useTrailers = false;
 		let trailerMaxLength = 0; // Default value 0; length measured in ms
 		let isChangingSlide = false, player = null, slideChangeTimeout = null, isHomePageActive = false, showOnOtherPages = false;
 		let currentLocation = window.top.location.href;
@@ -598,7 +598,7 @@
 		const fetchNextMovie = (useRandom = false) => {
 			const fetchCurrentUserId = () =>
 				fetch('/Sessions', {
-					headers: { 'Authorization': `MediaBrowser Client="Jellyfin Web", Device="YourDeviceName", DeviceId="YourDeviceId", Version="YourClientVersion", Token="${token}"` }
+					headers: { 'Authorization': `MediaBrowser Client="Jellyfin Web", Device="Spotlight", DeviceId="SpotlightID", Version="JSP", Token="${token}"` }
 				})
 				.then(response => response.json())
 				.then(sessions => {

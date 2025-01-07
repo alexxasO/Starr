@@ -26,7 +26,7 @@
         font-family: 'Roboto', sans-serif;
         font-size: 16px;
         text-align: center;
-        margin: 10px 0;
+        margin: 10px 35px;
         display: flex;
         align-items: center;
         justify-content: space-between;
