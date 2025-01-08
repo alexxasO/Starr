@@ -6,7 +6,7 @@ include:
   - compose/homarr.yml
   - compose/jellyfin.yml
   - compose/jellyplex-watched.yml
-  - compose/jellyseer.yml
+  - compose/jellyseerr.yml
   - compose/jellystat.yml
   - compose/jfa-go.yml
   - compose/kuma.yml
