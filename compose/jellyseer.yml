@@ -16,6 +16,9 @@ services:
       sonarr:
         condition: service_healthy
         restart: true
+      radarr:
+        condition: service_healthy
+        restart: true
       jellyfin:
         condition: service_healthy
         restart: true

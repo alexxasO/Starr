@@ -27,3 +27,9 @@ services:
     - "traefik.http.routers.qbittorrent-redirect.entrypoints=web"
     networks:
     - traefik-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m

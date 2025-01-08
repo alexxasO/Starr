@@ -9,7 +9,9 @@ services:
     volumes:
     - ${APPDATA_PATH}/plexautolanguages:/config
     depends_on:
-    - plex
+      plex:
+        condition: service_healthy
+        restart: true
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
