@@ -17,7 +17,9 @@ services:
     - ${DATA_PATH}:/data
     - /mnt:/mnt
     depends_on:
-    - rclone
+      rclone:
+        condition: service_healthy
+        restart: true
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7878"]
       interval: 1m30s

@@ -10,6 +10,16 @@ services:
     - /etc/localtime:/etc/localtime:ro
     networks:
     - traefik-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8056"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      jellyfin:
+        condition: service_healthy
+        restart: true
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.jfa-go.rule=Host(`jfa-go.${DOMAIN}`)"

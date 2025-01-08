@@ -8,6 +8,10 @@ services:
     - ${APPDATA_PATH}/wizarr/database:/data/database
     networks:
     - traefik-net
+    depends_on:
+      plex:
+        condition: service_healthy
+        restart: true
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.wizarr.rule=Host(`wizarr.${DOMAIN}`)"
