@@ -15,7 +15,7 @@ services:
     - ${APPDATA_PATH}/grafana/dashboards:/var/lib/grafana/dashboards
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.grafana.rule=Host(`grafana.lan`)"
+    - "traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN}`)"
     - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
   prometheus:
@@ -46,5 +46,5 @@ services:
     - TZ=${TZ}
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.prometheus.rule=Host(`prometheus.lan`)"
+    - "traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN}`)"
     - "traefik.http.services.prometheus.loadbalancer.server.port=9090"

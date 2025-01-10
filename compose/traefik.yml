@@ -7,6 +7,7 @@ services:
     ports:
     - "80:80" # HTTP
     - "443:443" # HTTPS
+    - "8080:8080" # Dashboard
     environment:
     - DOCKER_HOST=tcp://socket-proxy:2375
     volumes:
@@ -20,6 +21,6 @@ services:
     - socket-proxy
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.traefik.rule=Host(`traefik.lan`)" # Route for Traefik
+    - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)" # Route for Traefik
     - "traefik.http.services.traefik.loadbalancer.server.port=8080" # Dashboard port
     - 'traefik.http.middlewares.auth.basicauth.users=admin:*apr1*cktgRUyh*Mdg4SnDK8WBqt9ObfwQpm.' # Optional: Basic auth for security

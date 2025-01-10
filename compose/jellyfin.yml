@@ -36,11 +36,11 @@ services:
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
     - "traefik.enable=true"
-    - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.lan`)"
+    - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)"
     - "traefik.http.services.jellyfin.loadbalancer.server.port=8096" # Default Jellyfin port
     - "traefik.http.routers.jellyfin.middlewares=noindex@file"
     - "traefik.http.routers.jellyfin.tls.certresolver=myresolver"
-    - "traefik.http.routers.jellyfin-redirect.rule=Host(`jellyfin.lan`)"
+    - "traefik.http.routers.jellyfin-redirect.rule=Host(`jellyfin.${DOMAIN}`)"
     - "traefik.http.routers.jellyfin-redirect.entrypoints=web"
     - "traefik.http.routers.jellyfin-redirect.middlewares=redirect-to-https@file"
     deploy:

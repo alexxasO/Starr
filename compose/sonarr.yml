@@ -30,5 +30,5 @@ services:
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
     - "traefik.enable=true"
-    - "traefik.http.routers.sonarr.rule=Host(`sonarr.lan`)"
+    - "traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN}`)"
     - "traefik.http.services.sonarr.loadbalancer.server.port=8989" # Default Sonarr port
