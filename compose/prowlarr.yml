@@ -21,13 +21,13 @@ services:
     - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
     - "traefik.http.services.prowlarr.loadbalancer.server.port=9696" # Default Prowlarr port
 
-    #HTTPS
-    - "traefik.http.routers.prowlarr.middlewares=noindex@file,redirect-to-https@file"
-    - "traefik.http.routers.prowlarr.tls.certresolver=myresolver"
+    # #HTTPS
+    # - "traefik.http.routers.prowlarr.middlewares=noindex@file,redirect-to-https@file"
+    # - "traefik.http.routers.prowlarr.tls.certresolver=myresolver"
 
-    # HTTP to HTTPS Redirect Router
-    - "traefik.http.routers.prowlarr-redirect.rule=Host(`prowlarr.${DOMAIN}`)"
-    - "traefik.http.routers.prowlarr-redirect.entrypoints=web"
-    - "traefik.http.routers.prowlarr-redirect.middlewares=redirect-to-https@file"
+    # # HTTP to HTTPS Redirect Router
+    # - "traefik.http.routers.prowlarr-redirect.rule=Host(`prowlarr.${DOMAIN}`)"
+    # - "traefik.http.routers.prowlarr-redirect.entrypoints=web"
+    # - "traefik.http.routers.prowlarr-redirect.middlewares=redirect-to-https@file"
     networks:
     - traefik-net

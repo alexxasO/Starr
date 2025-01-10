@@ -32,8 +32,8 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN}`)"
     - "traefik.http.services.radarr.loadbalancer.server.port=7878" # Default Jellyfin port
-    - "traefik.http.routers.radarr.middlewares=noindex@file"
-    - "traefik.http.routers.radarr.tls.certresolver=myresolver"
-    - "traefik.http.routers.radarr-redirect.rule=Host(`radarr.${DOMAIN}`)"
-    - "traefik.http.routers.radarr-redirect.entrypoints=web"
-    - "traefik.http.routers.radarr-redirect.middlewares=redirect-to-https@file"
+    # - "traefik.http.routers.radarr.middlewares=noindex@file"
+    # - "traefik.http.routers.radarr.tls.certresolver=myresolver"
+    # - "traefik.http.routers.radarr-redirect.rule=Host(`radarr.${DOMAIN}`)"
+    # - "traefik.http.routers.radarr-redirect.entrypoints=web"
+    # - "traefik.http.routers.radarr-redirect.middlewares=redirect-to-https@file"

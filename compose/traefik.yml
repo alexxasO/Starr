@@ -7,7 +7,7 @@ services:
     ports:
     - "80:80" # HTTP
     - "443:443" # HTTPS
-    - "8080:8080" # Dashboard
+    - "8087:8080" # Dashboard
     environment:
     - DOCKER_HOST=tcp://socket-proxy:2375
     volumes:

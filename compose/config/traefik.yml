@@ -1,5 +1,5 @@
 api:
-  insecure: true # Exposes Traefik's dashboard (not recommended for production)
+  insecure: false # Exposes Traefik's dashboard (not recommended for production)
 log:
   level: DEBUG # Set the logging level
 

@@ -9,5 +9,7 @@ services:
     - LOG_HTML=${LOG_HTML:-false}
     - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
     - TZ=${TZ}
+    networks:
+    - traefik-net
     ports:
     - "${PORT:-8191}:8191"
