@@ -5,6 +5,8 @@ services:
       POSTGRES_DB: 'jfstat'
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mypassword
+    networks:
+    - traefik-net
     volumes:
     - jellystat-db:/var/lib/postgresql/data # Mounting the volume
 
