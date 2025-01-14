@@ -15,8 +15,9 @@ services:
     - ./config/traefik.yml:/etc/traefik/traefik.yml # Configurations
     - ${APPDATA_PATH}/traefik:/etc/traefik/letsencrypt # Configurations
     networks:
-    - traefik-net
-    - socket-proxy
+      traefik-net:
+        ipv4_address: 192.168.7.44
+      socket-proxy:
     depends_on:
     - socket-proxy
     labels:

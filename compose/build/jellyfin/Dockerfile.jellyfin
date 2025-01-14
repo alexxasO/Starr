@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
 # Add Content featured bar
 RUN mkdir -p ./ui
 COPY ./includes/featured_content.html ./ui/spotlight.html
+COPY ./includes/announcement_banner.html ./ui/announcement_banner.html
 COPY ./includes/home-html.chunk.js ./ui/home-html.chunk.js
 
 RUN FILE_TO_MODIFY=$(ls | grep home-html) && \
