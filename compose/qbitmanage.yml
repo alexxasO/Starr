@@ -11,6 +11,8 @@ services:
       qbittorrent:
         condition: service_healthy
         restart: true
+    networks:
+      - qbit-net
     volumes:
     - ${APPDATA_PATH}/qbitmanage:/config
     - ${APPDATA_PATH}/qbittorrent:/qbittorrent

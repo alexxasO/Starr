@@ -6,8 +6,6 @@ services:
     build:
       context: ./build/jellyfin
       dockerfile: Dockerfile.jellyfin
-    # ports:
-    # - "8096:8096"
     environment:
     - PUID=${PUID}
     - PGID=${PGID}
@@ -18,8 +16,8 @@ services:
     - ${DATA_PATH}:/data
     - ${APPDATA_PATH}/jellyfin/featured-content/List.txt:/usr/share/jellyfin/web/ui/List.txt
     - /mnt:/mnt
-    # ports:
-    # - 8096:8096
+    ports:
+    - 8096:8096
     healthcheck:
       test: curl -f localhost:8096/web/index.html || exit 1
       interval: 1m

@@ -26,7 +26,7 @@ services:
     - POST=0
     - PLUGINS=0
     - SECRETS=0
-    - SERVICES=0
+    - SERVICES=1
     - SESSION=0
     - SWARM=0
     - SYSTEM=0

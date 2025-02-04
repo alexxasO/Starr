@@ -31,6 +31,8 @@ providers:
   docker:
     exposedByDefault: false # Disable auto-exposing services, only expose them with labels
     endpoint: "tcp://socket-proxy:2375" # Using Docker Socket Proxy instead of docker socket for improved security
-    network: "socket-proxy" # Defines a default docker network to use for connections to all containers.
+    network: "starr_traefik-net" # Defines a default docker network to use for connections to all containers.
+    watch: true # Watch for changes in Docker containers
+    allowEmptyServices: true # Allow services with no exposed ports to be created
   file:
     filename: "/etc/traefik/traefik.yml"

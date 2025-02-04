@@ -1,5 +1,5 @@
 x-blackhole: &blackhole
-  build: 
+  build:
     context: .
     dockerfile: Dockerfile.blackhole
   image: ghcr.io/westsurname/scripts/blackhole:latest
@@ -10,7 +10,7 @@ x-blackhole: &blackhole
   restart: unless-stopped
 
 x-repair: &repair
-  build: 
+  build:
     context: .
     dockerfile: Dockerfile.scripts
   image: ghcr.io/westsurname/scripts/scripts:latest
@@ -32,6 +32,9 @@ services:
       - ${BLACKHOLE_BASE_WATCH_PATH}/${BLACKHOLE_SONARR_PATH}:/${BLACKHOLE_BASE_WATCH_PATH}/${BLACKHOLE_SONARR_PATH}
       - ${BLACKHOLE_BASE_WATCH_PATH}/${BLACKHOLE_RADARR_PATH}:/${BLACKHOLE_BASE_WATCH_PATH}/${BLACKHOLE_RADARR_PATH}
     profiles: [blackhole, blackhole_all, all]
+    depends_on:
+      rclone:
+        condition: service_healthy
 
   blackhole_4k:
     <<: *blackhole
@@ -137,7 +140,7 @@ services:
     profiles: [repair_mux, repair_all, all]
 
   watchlist:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile.watchlist
     container_name: watchlist_service
@@ -151,7 +154,7 @@ services:
     profiles: [watchlist, all]
 
   plex_authentication:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile.plex_authentication
     container_name: plex_authentication_service
@@ -166,7 +169,7 @@ services:
     profiles: [plex_authentication, watchlist, plex_request, all]
 
   plex_request:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile.plex_request
     container_name: plex_request_service

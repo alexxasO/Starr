@@ -3,8 +3,8 @@ services:
     image: louislam/uptime-kuma:1
     volumes:
     - ${APPDATA_PATH}/uptime-kuma/data:/app/data
-    # ports:
-    # - 3001:3001
+    ports:
+    - 3002:3001
     restart: unless-stopped
     networks:
     - socket-proxy

@@ -23,11 +23,15 @@ include:
   - compose/unmanic.yml
   - compose/wizarr.yml
   - compose/traefik.yml
+  - compose/vaultwarden.yml
+  - compose/grafana.yml
+  # - varken/compose.yml
   - zurg/docker-compose.yml
 
 networks:
   traefik-net:
-    ipam:
+      ipam:
       config:
         - subnet: "192.168.7.0/24"
   socket-proxy:
+  qbit-net:
