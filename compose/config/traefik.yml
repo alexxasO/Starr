@@ -33,6 +33,6 @@ providers:
     endpoint: "tcp://socket-proxy:2375" # Using Docker Socket Proxy instead of docker socket for improved security
     network: "starr_traefik-net" # Defines a default docker network to use for connections to all containers.
     watch: true # Watch for changes in Docker containers
-    allowEmptyServices: true # Allow services with no exposed ports to be created
+    allowEmptyServices: false # Allow services with no exposed ports to be created
   file:
     filename: "/etc/traefik/traefik.yml"
