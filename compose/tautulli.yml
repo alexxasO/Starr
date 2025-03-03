@@ -14,6 +14,11 @@ services:
     - ${APPDATA_PATH}/tautulli:/config
     networks:
     - traefik-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8181"]
+      interval: 30s
+      timeout: 10s
+      retries: 6
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
