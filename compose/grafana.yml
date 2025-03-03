@@ -1,8 +1,14 @@
+networks:
+  monitoring-net:
+
 services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    profiles: [ monitor, all ]
+    # profiles: [ monitor, all ]
+    user: root
+    ports:
+    - 3000:3000
     environment:
     - GF_SECURITY_ADMIN_PASSWORD=admin
     - PUID=${PUID}
@@ -10,6 +16,7 @@ services:
     - TZ=${TZ}
     networks:
     - traefik-net
+    - monitoring-net
     volumes:
     - ${APPDATA_PATH}/grafana:/var/lib/grafana
     - ${APPDATA_PATH}/grafana/dashboards:/var/lib/grafana/dashboards
@@ -25,7 +32,7 @@ services:
     - ${APPDATA_PATH}/prometheus/data:/prometheus
     - ./build/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     - ./build/prometheus/alert.rules:/etc/prometheus/alert.rules
-    profiles: [ monitor, all ]
+    # profiles: [ monitor, all ]
     command:
     - '--config.file=/etc/prometheus/prometheus.yml'
     - '--storage.tsdb.path=/prometheus'
@@ -33,11 +40,9 @@ services:
     - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
     - 9090:9090
-    # links:
-    # - cadvisor:cadvisor
-    # - alertmanager:alertmanager
     networks:
     - traefik-net
+    - monitoring-net
     user: root
     restart: always
     environment:
@@ -48,3 +53,50 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN}`)"
     - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+
+
+  # Exporters
+
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    # profiles: [ monitor, all ]
+    ports:
+    - 8082:8080
+    networks:
+    - monitoring-net
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+
+  jellyfin-exporter:
+    image: alexxasO/jellyfin-exporter:latest
+    container_name: jellyfin-exporter
+    ports:
+    - 9586:8080
+    networks:
+    - monitoring-net
+    environment:
+    - JELLYFIN_API_URL=jellyfin:8096
+    - JELLYFIN_TOKEN=${JELLYFIN_TOKEN}
+    - SERVER_PORT=8080
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    # profiles: [ monitor, all ]
+    ports:
+    - 9100:9100
+    networks:
+    - monitoring-net
+    command:
+    - '--path.procfs=/host/proc'
+    - '--path.sysfs=/host/sys'
+    - '--path.rootfs=/host'
+    - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+    volumes:
+    - /proc:/host/proc:ro
+    - /sys:/host/sys:ro
+    - /:/host:ro
