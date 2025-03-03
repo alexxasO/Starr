@@ -12,6 +12,8 @@ services:
     - ${APPDATA_PATH}/unmanic:/config
     - ${DATA_PATH}/media:/library
     - /tmp/unmanic:/tmp/unmanic
+    networks:
+    - traefik-net
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.unmanic.rule=Host(`unmanic.${DOMAIN}`)"
