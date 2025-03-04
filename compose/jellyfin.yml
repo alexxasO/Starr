@@ -56,16 +56,3 @@ services:
         failure_action: rollback
         monitor: 1m
         max_failure_ratio: 0.3
-
-  jellyfin_exporter:
-    image: rebelcore/jellyfin-exporter:v1.3.2
-    container_name: jellyfin_exporter
-    profiles: [ monitor, all ]
-    command:
-    - '--jellyfin.address=http://jellyfin:8096'
-    - '--jellyfin.token=${JELLYFIN_TOKEN}'
-    ports:
-    - 9594:9594
-    networks:
-    - traefik-net
-    restart: unless-stopped
