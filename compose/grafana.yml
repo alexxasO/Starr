@@ -11,6 +11,7 @@ services:
     - 3000:3000
     environment:
     - GF_SECURITY_ADMIN_PASSWORD=admin
+    - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource,grafana-piechart-panel,grafana-worldmap-panel
     - PUID=${PUID}
     - PGID=${PGID}
     - TZ=${TZ}
@@ -20,6 +21,7 @@ services:
     volumes:
     - ${APPDATA_PATH}/grafana:/var/lib/grafana
     - ${APPDATA_PATH}/grafana/dashboards:/var/lib/grafana/dashboards
+    - ./grafana/provisioning:/etc/grafana/provisioning
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN}`)"
@@ -70,18 +72,6 @@ services:
     - /var/run:/var/run:rw
     - /sys:/sys:ro
     - /var/lib/docker/:/var/lib/docker:ro
-
-  jellyfin-exporter:
-    image: alexxasO/jellyfin-exporter:latest
-    container_name: jellyfin-exporter
-    ports:
-    - 9586:8080
-    networks:
-    - monitoring-net
-    environment:
-    - JELLYFIN_API_URL=jellyfin:8096
-    - JELLYFIN_TOKEN=${JELLYFIN_TOKEN}
-    - SERVER_PORT=8080
 
   node-exporter:
     image: prom/node-exporter:latest

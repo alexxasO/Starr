@@ -1,5 +1,5 @@
 include:
-  - blackhole/docker-compose.yml
+  # - blackhole/docker-compose.yml
   - compose/bazarr.yml
   - compose/flaresolverr.yml
   - compose/gotify.yml
@@ -25,13 +25,12 @@ include:
   - compose/traefik.yml
   - compose/vaultwarden.yml
   - compose/grafana.yml
-  # - varken/compose.yml
   - zurg/docker-compose.yml
 
 networks:
   traefik-net:
       ipam:
-      config:
-        - subnet: "192.168.7.0/24"
+        config:
+          - subnet: "192.168.7.0/24"
   socket-proxy:
   qbit-net:
