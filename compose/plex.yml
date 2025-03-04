@@ -26,7 +26,9 @@ services:
       timeout: 10s
       retries: 5
     depends_on:
-    - rclone
+      rclone:
+        condition: service_healthy
+        restart: true
     networks:
     - traefik-net
     labels:
