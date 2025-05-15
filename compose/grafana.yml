@@ -11,7 +11,7 @@ services:
     - 3000:3000
     environment:
     - GF_SECURITY_ADMIN_PASSWORD=admin
-    - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource,grafana-piechart-panel,grafana-worldmap-panel
+    - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource,grafana-piechart-panel,grafana-worldmap-panel,yesoreyeram-boomtheme-panel
     - PUID=${PUID}
     - PGID=${PGID}
     - TZ=${TZ}
@@ -90,3 +90,18 @@ services:
     - /proc:/host/proc:ro
     - /sys:/host/sys:ro
     - /:/host:ro
+
+  jellystat-exporter:
+    image: alexxaso/jellyfin-exporter:latest
+    container_name: jellystat-exporter
+    # profiles: [ monitor, all ]
+    ports:
+    - 8088:80
+    networks:
+    - monitoring-net
+    - traefik-net
+    environment:
+    - JELLYFIN_API_URL=${JELLYFIN_URL}
+    - JELLYFIN_API_TOKEN=${JELLYFIN_TOKEN}
+    - JELLYSTAT_API_URL=${JELLYSTAT_URL}
+    - JELLYSTAT_API_TOKEN=${JELLYSTAT_TOKEN}

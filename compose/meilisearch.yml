@@ -1,0 +1,12 @@
+services:
+  meilisearch:
+    image: getmeili/meilisearch
+    restart: unless-stopped
+    volumes:
+      - ${APPDATA_PATH}/meilisearch:/meili_data
+    networks:
+      - traefik-net
+    ports:
+      - 7700:7700
+    environment:
+      MEILI_MASTER_KEY: "papaestbeau"

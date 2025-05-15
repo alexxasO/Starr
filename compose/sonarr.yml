@@ -25,6 +25,7 @@ services:
       retries: 3
     networks:
     - traefik-net
+    # - blackhole-net
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"

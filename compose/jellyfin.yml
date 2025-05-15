@@ -15,6 +15,7 @@ services:
     - ${APPDATA_PATH}/jellyfin:/config
     - ${DATA_PATH}:/data
     - ${APPDATA_PATH}/jellyfin/featured-content/List.txt:/usr/share/jellyfin/web/ui/List.txt
+    - ${APPDATA_PATH}/jellyfin/featured-content/message.txt:/usr/share/jellyfin/web/ui/message.txt
     - /mnt:/mnt
     ports:
     - 8096:8096
@@ -33,26 +34,39 @@ services:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
-    - "traefik.enable=true"
-    - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)"
-    - "traefik.http.services.jellyfin.loadbalancer.server.port=8096" # Default Jellyfin port
+    # - "traefik.enable=true"
+    # - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)"
+    # - "traefik.http.services.jellyfin.loadbalancer.server.port=8096" # Default Jellyfin port
     # - "traefik.http.routers.jellyfin.middlewares=noindex@file"
-    # - "traefik.http.routers.jellyfin.tls.certresolver=myresolver"
+    # - "traefik.http.routers.jellyfin.tls.certresolver=letsencrypt"
     # - "traefik.http.routers.jellyfin-redirect.rule=Host(`jellyfin.${DOMAIN}`)"
     # - "traefik.http.routers.jellyfin-redirect.entrypoints=web"
     # - "traefik.http.routers.jellyfin-redirect.middlewares=redirect-to-https@file"
-    deploy:
-      mode: replicated
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
-      update_config:
-        parallelism: 1
-        delay: 10s
-        order: start-first
-        failure_action: rollback
-        monitor: 1m
-        max_failure_ratio: 0.3
+    # deploy:
+    #   mode: replicated
+    #   replicas: 1
+    #   restart_policy:
+    #     condition: on-failure
+    #     delay: 5s
+    #     max_attempts: 3
+    #     window: 120s
+    #   update_config:
+    #     parallelism: 1
+    #     delay: 10s
+    #     order: start-first
+    #     failure_action: rollback
+    #     monitor: 1m
+    #     max_failure_ratio: 0.3
+
+  jellyfin_exporter:
+    image: rebelcore/jellyfin-exporter:v1.3.2
+    container_name: jellyfin_exporter
+    profiles: [ monitor, all ]
+    command:
+    - '--jellyfin.address=http://jellyfin:8096'
+    - '--jellyfin.token=${JELLYFIN_TOKEN}'
+    ports:
+    - 9594:9594
+    networks:
+    - traefik-net
+    restart: unless-stopped

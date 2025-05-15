@@ -18,6 +18,6 @@ services:
     - "traefik.http.services.wizarr.loadbalancer.server.port=5690"
     - "traefik.http.routers.wizarr.middlewares=noindex@file"
     # - "traefik.http.routers.wizarr.middlewares=noindex@file,redirect-to-https@file"
-    # - "traefik.http.routers.wizarr.tls.certresolver=myresolver"
+    # - "traefik.http.routers.wizarr.tls.certresolver=letsencrypt"
     # - "traefik.http.routers.wizarr-redirect.rule=Host(`wizarr.${DOMAIN}`)"
     # - "traefik.http.routers.wizarr-redirect.entrypoints=web"

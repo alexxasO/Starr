@@ -37,6 +37,7 @@ services:
     healthcheck:
       test: "rclone about zurg: --config /config/rclone/rclone.conf"
       interval: 30s
+      start_period: 10s
       timeout: 10s
       retries: 3
     command: "mount zurg: /data --allow-non-empty --allow-other --uid=1000 --gid=1000 --umask=002 --dir-cache-time 10s"

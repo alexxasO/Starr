@@ -4,8 +4,6 @@
       e.default = `
     <div id="indexPage" style="outline:0" data-role="page" data-dom-cache="true" class="page homePage libraryPage allLibraryPage backdropPage pageWithAbsoluteTabs withTabs" data-backdroptype="movie,series,book">
       <style>
-        .announcementiframe {width: 95vw; height: 78px; display: block; border: 0px solid #000; margin: 0 auto; margin-bottom: 0em; margin-top: 1em;}
-
         .featurediframe {width: 95vw; height: 23.5em; display: block; border: 0px solid #000; margin: 0 auto; margin-bottom: 0em; margin-top: 1em;}
 	      @media (min-width: 2601px) {.featurediframe {height: 50em;} }
         @media (min-width: 2000px) and (max-width: 2600px) {.featurediframe {height: 20em; font-size: 175%;} .layout-desktop #homeTab .sections.homeSectionsContainer {margin-top: -3em !important;} }
@@ -19,7 +17,6 @@
         @media screen and (aspect-ratio: 10/16) and (max-height: 1280px) {.featurediframe {height: 25em;} }
       </style>
       <div class="tabContent pageTabContent" id="homeTab" data-index="0">
-      <iframe class="announcementiframe" src="/web/ui/announcement_banner.html"></iframe>
       <iframe class="featurediframe" src="/web/ui/spotlight.html"></iframe>
       <div class="sections"></div></div><div class="tabContent pageTabContent" id="favoritesTab" data-index="1"> <div class="sections"></div></div></div>`;
   }

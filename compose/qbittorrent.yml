@@ -13,18 +13,15 @@ services:
     - WEBUI_PORTS=8080/tcp,8080/udp
     volumes:
     - ${APPDATA_PATH}/qbittorrent:/config
+    - ${APPDATA_PATH}/qbittorrent-games:/games
     - ${DATA_PATH}:/data
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=false"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
     - "traefik.enable=true"
-    - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)"
+    - "traefik.http.routers.qbittorrent.rule=Host(`qbit.${DOMAIN}`)"
     - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
-    # - "traefik.http.routers.qbittorrent.middlewares=noindex@file,redirect-to-https@file"
-    # - "traefik.http.routers.qbittorrent.tls.certresolver=myresolver"
-    # - "traefik.http.routers.qbittorrent-redirect.rule=Host(`qbittorrent.${DOMAIN}`)"
-    # - "traefik.http.routers.qbittorrent-redirect.entrypoints=web"
     networks:
     - traefik-net
     - qbit-net

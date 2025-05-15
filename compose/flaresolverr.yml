@@ -11,5 +11,6 @@ services:
     - TZ=${TZ}
     networks:
     - traefik-net
+    - socket-proxy
     ports:
     - "${PORT:-8191}:8191"

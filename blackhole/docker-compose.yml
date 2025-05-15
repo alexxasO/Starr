@@ -35,6 +35,16 @@ services:
     depends_on:
       rclone:
         condition: service_healthy
+        restart: true
+      sonarr:
+        condition: service_healthy
+        restart: true
+      radarr:
+        condition: service_healthy
+        restart: true
+    networks:
+      - traefik-net
+      - socket-proxy
 
   blackhole_4k:
     <<: *blackhole
@@ -203,7 +213,7 @@ services:
       - plex_request
       - plex_authentication
 
-networks:
-  default:
-    name: ${DOCKER_NETWORK:-scripts_default}
-    external: ${DOCKER_NETWORK_EXTERNAL:-false}
+# networks:
+#   default:
+#     name: ${DOCKER_NETWORK:-scripts_default}
+#     external: ${DOCKER_NETWORK_EXTERNAL:-true}

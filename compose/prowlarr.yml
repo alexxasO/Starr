@@ -23,7 +23,7 @@ services:
 
     # #HTTPS
     # - "traefik.http.routers.prowlarr.middlewares=noindex@file,redirect-to-https@file"
-    # - "traefik.http.routers.prowlarr.tls.certresolver=myresolver"
+    # - "traefik.http.routers.prowlarr.tls.certresolver=letsencrypt"
 
     # # HTTP to HTTPS Redirect Router
     # - "traefik.http.routers.prowlarr-redirect.rule=Host(`prowlarr.${DOMAIN}`)"

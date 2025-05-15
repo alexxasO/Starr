@@ -1,6 +1,8 @@
 include:
-  # - blackhole/docker-compose.yml
+  - blackhole/docker-compose.yml
   - compose/bazarr.yml
+  - compose/cross-seed.yml
+  - compose/meilisearch.yml
   - compose/flaresolverr.yml
   - compose/gotify.yml
   - compose/homarr.yml
@@ -9,7 +11,7 @@ include:
   - compose/jellyseerr.yml
   - compose/jellystat.yml
   - compose/jfa-go.yml
-  - compose/kuma.yml
+  # - compose/kuma.yml
   - compose/plex.yml
   - compose/plexautolanguage.yml
   - compose/prowlarr.yml
@@ -21,16 +23,15 @@ include:
   - compose/sonarr.yml
   - compose/tautulli.yml
   - compose/unmanic.yml
-  - compose/wizarr.yml
-  - compose/traefik.yml
-  - compose/vaultwarden.yml
-  - compose/grafana.yml
+  # - compose/wizarr.yml
+  # - compose/traefik.yml
+  - compose/autobrr.yml
+  # - compose/vaultwarden.yml
+  # - compose/grafana.yml
+  # - varken/compose.yml
   - zurg/docker-compose.yml
 
 networks:
   traefik-net:
-      ipam:
-        config:
-          - subnet: "192.168.7.0/24"
   socket-proxy:
   qbit-net:
