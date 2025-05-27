@@ -12,7 +12,8 @@ services:
     - TZ=${TZ}
     volumes:
     - ${APPDATA_PATH}/prowlarr:/config
-    - /mnt:/mnt
+    - /mnt:/mnt:rshared
+    - /mounts:/mounts:rshared
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"

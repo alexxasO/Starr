@@ -19,7 +19,8 @@ services:
     - ${APPDATA_PATH}/plex:/config
     - ${TRANSCODE_PATH}:/transcode
     - ${DATA_PATH}:/data
-    - /mnt:/mnt
+    - /mnt:/mnt:rshared
+    - /mounts:/mounts:rshared
     healthcheck:
       test: curl -f localhost:32400/web/index.html || exit 1
       interval: 1m

@@ -6,6 +6,7 @@ services:
     build:
       context: ./build/jellyfin
       dockerfile: Dockerfile.jellyfin
+    image: ghcr.io/hotio/jellyfin:latest
     environment:
     - PUID=${PUID}
     - PGID=${PGID}
@@ -16,7 +17,8 @@ services:
     - ${DATA_PATH}:/data
     - ${APPDATA_PATH}/jellyfin/featured-content/List.txt:/usr/share/jellyfin/web/ui/List.txt
     - ${APPDATA_PATH}/jellyfin/featured-content/message.txt:/usr/share/jellyfin/web/ui/message.txt
-    - /mnt:/mnt
+    - /mnt:/mnt:rshared
+    - /mounts:/mounts:rshared
     ports:
     - 8096:8096
     healthcheck:

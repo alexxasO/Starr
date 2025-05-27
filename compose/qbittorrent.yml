@@ -15,6 +15,7 @@ services:
     - ${APPDATA_PATH}/qbittorrent:/config
     - ${APPDATA_PATH}/qbittorrent-games:/games
     - ${DATA_PATH}:/data
+    - /mounts:/mounts:rshared
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=false"

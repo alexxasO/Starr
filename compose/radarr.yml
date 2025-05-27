@@ -15,7 +15,8 @@ services:
     volumes:
     - ${APPDATA_PATH}/radarr:/config
     - ${DATA_PATH}:/data
-    - /mnt:/mnt
+    - /mnt:/mnt:rshared
+    - /mounts:/mounts:rshared
     depends_on:
       rclone:
         condition: service_healthy
