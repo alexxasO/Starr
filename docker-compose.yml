@@ -30,6 +30,7 @@ include:
   # - compose/grafana.yml
   # - varken/compose.yml
   - zurg/docker-compose.yml
+  - compose/byparr.yml
 
 networks:
   traefik-net:
