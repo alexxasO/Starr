@@ -10,7 +10,7 @@ services:
     # environment:
     #   - PROXY=http://pproxy:8080
     volumes:
-      - ./screenshots:/app/screenshots # (optional) For screenshots when exception occurs
+      - ${APPDATA_PATH}/byparr/screenshots:/app/screenshots # (optional) For screenshots when exception occurs
     # # Uncomment below to use byparr outside of internal network
     # ports:
     #   - "8191:8191"
