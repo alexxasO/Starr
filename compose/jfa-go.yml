@@ -20,11 +20,5 @@ services:
       jellyfin:
         condition: service_healthy
         restart: true
-    labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.jfa-go.rule=Host(`jfa-go.${DOMAIN}`)"
-    - "traefik.http.services.jfa-go.loadbalancer.server.port=8056"
-    - "traefik.http.routers.jfa-go.middlewares=noindex@file,redirect-to-https@file"
-    - "traefik.http.routers.jfa-go.tls.certresolver=myresolver"
-    - "traefik.http.routers.jfa-go-redirect.rule=Host(`jfa-go.${DOMAIN}`)"
-    - "traefik.http.routers.jfa-go-redirect.entrypoints=web"
+    command: ["/opt/jfa-go/jfa-go", "-data", "/data", "-swagger"]
+    restart: unless-stopped

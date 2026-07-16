@@ -1,0 +1,27 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_TYPE=openvpn
+
+      # ProtonVPN OpenVPN credentials
+      - OPENVPN_USER=88QPc83QgMfpZAjQ
+      - OPENVPN_PASSWORD=q3lGsWevlb5N7hyfYMsiJx7VKNew4TyL
+
+      # Required for Proton free servers
+      - FREE_ONLY=on
+
+      # Optional
+      - SERVER_COUNTRIES=Netherlands
+
+    #ports:
+    #  - "9696:9696"   # Prowlarr UI
+    networks:
+      - traefik-net
+    restart: unless-stopped

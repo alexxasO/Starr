@@ -1,33 +1,64 @@
 services:
   prowlarr:
-    # container_name: prowlarr
+    container_name: prowlarr
     restart: unless-stopped
     image: ghcr.io/hotio/prowlarr
-    # ports:
-    # - "9696:9696"
+    # network_mode: "service:gluetun"
+    ports:
+    - "9696:9696"
     environment:
     - PUID=${PUID}
     - PGID=${PGID}
     - UMASK=${UMASK}
     - TZ=${TZ}
     volumes:
-    - ${APPDATA_PATH}/prowlarr:/config
-    - /mnt:/mnt
+    - ${APPDATA_PATH}/prowlarr2:/config
+    - /mnt:/mnt:rshared
+    - /mounts:/mounts:rshared
+    depends_on:
+      - byparr
+      #- gluetun
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
     - "traefik.enable=true"
-    - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.lan`)"
+    - "traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN}`)"
     - "traefik.http.services.prowlarr.loadbalancer.server.port=9696" # Default Prowlarr port
 
-    #HTTPS
-    - "traefik.http.routers.prowlarr.middlewares=noindex@file,redirect-to-https@file"
-    - "traefik.http.routers.prowlarr.tls.certresolver=myresolver"
+  # prowlarr2:
+  #   container_name: prowlarr2
+  #   restart: unless-stopped
+  #   image: ghcr.io/hotio/prowlarr
+  #   ports:
+  #   - "9697:9696"
+  #   environment:
+  #   - PUID=${PUID}
+  #   - PGID=${PGID}
+  #   - UMASK=${UMASK}
+  #   - TZ=${TZ}
+  #   volumes:
+  #   - ${APPDATA_PATH}/prowlarr2:/config
+  #   - /mnt:/mnt:rshared
+  #   - /mounts:/mounts:rshared
+  #   depends_on:
+  #     - byparr
+  #   labels:
+  #   - "org.hotio.pullio.notify=true"
+  #   - "org.hotio.pullio.update=true"
+  #   - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+  #   - "traefik.enable=true"
+  #   - "traefik.http.routers.prowlarr2.rule=Host(`prowlarr2.${DOMAIN}`)"
+  #   - "traefik.http.services.prowlarr2.loadbalancer.server.port=9697" # Default Prowlarr port
 
-    # HTTP to HTTPS Redirect Router
-    - "traefik.http.routers.prowlarr-redirect.rule=Host(`prowlarr.lan`)"
-    - "traefik.http.routers.prowlarr-redirect.entrypoints=web"
-    - "traefik.http.routers.prowlarr-redirect.middlewares=redirect-to-https@file"
+
+    # #HTTPS
+    # - "traefik.http.routers.prowlarr.middlewares=noindex@file,redirect-to-https@file"
+    # - "traefik.http.routers.prowlarr.tls.certresolver=letsencrypt"
+
+    # # HTTP to HTTPS Redirect Router
+    # - "traefik.http.routers.prowlarr-redirect.rule=Host(`prowlarr.${DOMAIN}`)"
+    # - "traefik.http.routers.prowlarr-redirect.entrypoints=web"
+    # - "traefik.http.routers.prowlarr-redirect.middlewares=redirect-to-https@file"
     networks:
-    - traefik-net
+      traefik-net:

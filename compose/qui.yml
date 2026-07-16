@@ -1,0 +1,16 @@
+services:
+  qui:
+    image: ghcr.io/autobrr/qui:latest
+    container_name: qui
+    restart: unless-stopped
+    ports:
+      - "7476:7476"
+    volumes:
+      - ${APPDATA_PATH}/qui:/config
+      - ${APPDATA_PATH}/qbittorrent-games:/games
+      - ${DATA_PATH}:/data
+      - /mnt/Games:/mnt/Games
+      - /mounts:/mounts:rshared
+    networks:
+      - traefik-net
+    #environment:

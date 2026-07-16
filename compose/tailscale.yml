@@ -1,0 +1,43 @@
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    hostname: tailscale-nginx
+    environment:
+      - TS_AUTHKEY=tskey-auth-kyo9AsFNRg11CNTRL-ttjVLDyMW7MLEtAu9xWT7MHDwU7X87xsQ
+      # - TS_EXTRA_ARGS=--advertise-tags=tag:container
+      - TS_STATE_DIR=/var/lib/tailscale
+      # - TS_USERSPACE=false
+      - TS_ACCEPT_DNS=true
+      - TS_HOSTNAME=starr-docker
+    volumes:
+      - ${APPDATA_PATH}/tailscale-nginx/state:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+    restart: unless-stopped
+
+  pihole:
+    image: pihole/pihole
+    container_name: pihole
+    network_mode: "service:tailscale"
+    environment:
+      TZ: 'Europe/Paris'
+      WEBPASSWORD: 'ceciestuntest'
+    volumes:
+      - '${APPDATA_PATH}/etc-pihole/:/etc/pihole/'
+      - '${APPDATA_PATH}/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+  NPM:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    # ports:
+    #   - '80:80'
+    #   - '81:81'
+    #   - '443:443'
+    network_mode: "service:tailscale"
+    volumes:
+      - ${APPDATA_PATH}/data:/data
+      - ${APPDATA_PATH}/letsencrypt:/etc/letsencrypt

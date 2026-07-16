@@ -1,30 +1,48 @@
 include:
+  - compose/landing.yml
+
+  # Downloaders
   - blackhole/docker-compose.yml
-  - compose/bazarr.yml
-  - compose/flaresolverr.yml
-  - compose/gotify.yml
-  - compose/homarr.yml
-  - compose/jellyfin.yml
-  - compose/jellyplex-watched.yml
-  - compose/jellyseerr.yml
-  - compose/jellystat.yml
-  - compose/jfa-go.yml
-  - compose/kuma.yml
-  - compose/plex.yml
-  - compose/plexautolanguage.yml
-  - compose/prowlarr.yml
-  - compose/qbitmanage.yml
-  - compose/qbittorrent.yml
-  - compose/radarr.yml
-  - compose/rflood.yml
-  - compose/socket-proxy.yml
-  - compose/sonarr.yml
-  - compose/tautulli.yml
-  - compose/unmanic.yml
-  - compose/wizarr.yml
-  - compose/traefik.yml
   - zurg/docker-compose.yml
+  - compose/qui.yml
+  - compose/qbittorrent.yml
+
+  # Jellyfin Stack
+  - compose/jellyfin.yml
+  - compose/jellyseerr.yml
+  - compose/jfa-go.yml
+
+  # Arr* Applications
+  - compose/prowlarr.yml
+  - compose/radarr.yml
+  - compose/sonarr.yml
+  - compose/byparr.yml
+  - compose/bazarr.yml
+
+  # Gotify - Notifications
+  - compose/gotify.yml
+
+  # Homarr - Dashboard
+  # - compose/homarr.yml
+
+  # Dash - Monitor Resources
+  # - compose/dash.yml
+
+  # Gameyfin - Video Game Library Manager
+  # - compose/gameyfin.yml
+
+  # Tracearr
+  - compose/tracearr.yml
+
+  # Swiparr
+  # - compose/swiparr.yml
+
+  # TubeArchivist
+  # - compose/tubearchivist.yml
+
+  # Dozzle - Docker Logs Viewer
+  - compose/dozzle.yml
 
 networks:
   traefik-net:
-  socket-proxy:
+  qbit-net:

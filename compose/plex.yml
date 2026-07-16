@@ -19,14 +19,17 @@ services:
     - ${APPDATA_PATH}/plex:/config
     - ${TRANSCODE_PATH}:/transcode
     - ${DATA_PATH}:/data
-    - /mnt:/mnt
+    - /mnt:/mnt:rshared
+    - /mounts:/mounts:rshared
     healthcheck:
       test: curl -f localhost:32400/web/index.html || exit 1
       interval: 1m
       timeout: 10s
       retries: 5
     depends_on:
-    - rclone
+      rclone:
+        condition: service_healthy
+        restart: true
     networks:
     - traefik-net
     labels:
@@ -34,9 +37,9 @@ services:
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
     - "traefik.enable=true"
-    - "traefik.http.routers.plex.rule=Host(`plex.lan`)"
+    - "traefik.http.routers.plex.rule=Host(`plex.${DOMAIN}`)"
     - "traefik.http.services.plex.loadbalancer.server.port=32400"
-    - "traefik.http.routers.plex.middlewares=noindex@file,redirect-to-https@file"
-    - "traefik.http.routers.plex.tls.certresolver=myresolver"
-    - "traefik.http.routers.plex-redirect.rule=Host(`plex.lan`)"
-    - "traefik.http.routers.plex-redirect.entrypoints=web"
+    # - "traefik.http.routers.plex.middlewares=noindex@file,redirect-to-https@file"
+    # - "traefik.http.routers.plex.tls.certresolver=letsencrypt"
+    # - "traefik.http.routers.plex-redirect.rule=Host(`plex.${DOMAIN}`)"
+    # - "traefik.http.routers.plex-redirect.entrypoints=web"

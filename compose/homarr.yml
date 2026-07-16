@@ -1,16 +1,17 @@
-# services:
-  # homarr:
-  #   container_name: homarr
-  #   image: ghcr.io/ajnart/homarr:latest
-  #   restart: unless-stopped
-  #   volumes:
-  #   - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
-  #   - ${APPDATA_PATH}/homarr/config:/app/data/configs
-  #   - ${APPDATA_PATH}/homarr/icons:/app/public/icons
-  #   - ${APPDATA_PATH}/homarr/data:/data
-  #   ports:
-  #   - '7575:7575'
-  #   labels:
-  #   - "org.hotio.pullio.notify=true"
-  #   - "org.hotio.pullio.update=true"
-  #   - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
+#---------------------------------------------------------------------#
+#     Homarr - A simple, yet powerful dashboard for your server.      #
+#---------------------------------------------------------------------#
+services:
+  homarr:
+    container_name: homarr
+    image: ghcr.io/homarr-labs/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+      - ${APPDATA_PATH}/homarr:/appdata
+    environment:
+      - SECRET_ENCRYPTION_KEY=7e3e38f1be189227eb19f396912ba9da31a97de67490f79093a3f6359891c5bc
+    networks:
+      - traefik-net
+    ports:
+      - '7575:7575'

@@ -1,0 +1,14 @@
+services:
+  swiparr:
+    image: ghcr.io/m3sserstudi0s/swiparr:latest
+    container_name: swiparr
+    restart: unless-stopped
+    environment:
+      - PROVIDER=jellyfin  # or plex, emby, tmdb (or set PROVIDER_LOCK to "false")
+      - JELLYFIN_URL=http://jellyfin:8096 # adjust to provider, none without server lock
+    volumes:
+      - ${APPDATA_PATH}/swiparr:/app/data
+    ports:
+      - 4321:4321
+    networks:
+      - traefik-net

@@ -2,7 +2,7 @@ services:
   jellyseerr:
     container_name: jellyseerr
     restart: unless-stopped
-    image: ghcr.io/hotio/jellyseerr
+    image: ghcr.io/hotio/seerr:latest
     ports:
     - "5055:5055"
     environment:
@@ -28,10 +28,3 @@ services:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=true"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
-    - "traefik.enable=true"
-    - "traefik.http.routers.jellyseerr.rule=Host(`jellyseerr.${DOMAIN}`)"
-    - "traefik.http.services.jellyseerr.loadbalancer.server.port=5055"
-    - "traefik.http.routers.jellyseerr.middlewares=noindex@file,redirect-to-https@file"
-    - "traefik.http.routers.jellyseerr.tls.certresolver=myresolver"
-    - "traefik.http.routers.jellyseerr-redirect.rule=Host(`jellyseerr.${DOMAIN}`)"
-    - "traefik.http.routers.jellyseerr-redirect.entrypoints=web"

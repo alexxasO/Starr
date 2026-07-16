@@ -1,6 +1,6 @@
 # Zurg configuration version
 zurg: v1
-token: D7NUOAM7ANJXLVYD7XDUHB2B23SODOT2CO5446LGZWO3M2CJVZEA # https://real-debrid.com/apitoken
+token: VF2STQC47K4ZQ63TNCBFGOHRE7YFNTHOU6MBUD65OAJEG7BXJT4A # https://real-debrid.com/apitoken
 # host: "https://webdav.debrid.it/"
 # port: 9999
 # username: Rx7fBBNgduYHBybPC0az
@@ -14,7 +14,7 @@ check_for_changes_every_secs: 10
 ignore_renames: true
 retain_rd_torrent_name: true
 retain_folder_name_extension: true
-enable_repair: false
+enable_repair: true
 auto_delete_rar_torrents: false
 get_torrents_count: 5000
 # api_timeout_secs: 15

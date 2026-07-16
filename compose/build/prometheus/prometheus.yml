@@ -36,6 +36,22 @@ scrape_configs:
   static_configs:
   - targets: [ 'localhost:9090' ]
 
-- job_name: 'jellyfin_exporter'
+- job_name: 'cadvisor'
+
   static_configs:
-  - targets: [ 'jellyfin_exporter:9594' ]
+  - targets: [ 'cadvisor:8080' ]
+
+- job_name: 'local_node_exporter'
+
+  static_configs:
+  - targets: [ 'node-exporter:9100' ]
+
+- job_name: 'jellystat_exporter'
+
+  static_configs:
+  - targets: [ 'jellystat-exporter:80' ]
+
+- job_name: 'host_node_exporter'
+
+  static_configs:
+  - targets: [ '192.168.44.253:9100' ]

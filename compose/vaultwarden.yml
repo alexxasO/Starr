@@ -1,0 +1,30 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    environment:
+      DOMAIN: "https://vaultwarden.${DOMAIN}"
+      # WEBSOCKET_ENABLED: "true"
+      SHOW_PASSWORD_HINT: "false"
+      TIME_ZONE: "Europe/Paris"
+      TZ: "Europe/Paris"
+      SIGNUPS_ALLOWED: "false"
+      ADMIN_TOKEN: "${ADMIN_TOKEN}"
+    volumes:
+      - ${APPDATA_PATH}/vaultwarden/:/data/
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8900:80
+    networks:
+      - traefik-net
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80/health"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vaultwarden.rule=Host(`vaultwarden.${DOMAIN}`)"
+      - "traefik.http.services.vaultwarden.loadbalancer.server.port=80"
