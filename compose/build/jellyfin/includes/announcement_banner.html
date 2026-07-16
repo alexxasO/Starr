@@ -1,0 +1,103 @@
+<style>
+    .marquee {
+        /* width: 450px; */
+        /* line-height: 50px; */
+        /* background-color: red; */
+        /* color: white; */
+        white-space: nowrap;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .marquee span {
+        display: inline-block;
+        /* padding-left: 100%; */
+        animation: none;
+        /* animation: marquee 15s linear infinite; */
+    }
+    @keyframes marquee {
+        0%   { transform: translate(0, 0); }
+        100% { transform: translate(-100%, 0); }
+    }
+</style>
+
+<div id="announcementBanner" class="marquee" style="
+        background-color: #2b303b;
+        color: #ffffff;
+        border: 1px solid #4c566a;
+        border-radius: 4px;
+        padding: 16px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        text-align: center;
+        margin: 10px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+        white-space: nowrap;
+      ">
+    <span id="announcementText" style="flex-grow: 1;"></span>
+    <!-- <button id="closeAnnouncement" style="
+          background: none;
+          border: none;
+          color: #ffffff;
+          font-size: 20px;
+          cursor: pointer;
+          padding: 0 8px;
+        " aria-label="Close announcement">
+        &times;
+    </button> -->
+</div>
+
+<script>
+    function checkOverflow(el) {
+        var curOverflow = el.style.overflow;
+
+        if ( !curOverflow || curOverflow === "visible" )
+            el.style.overflow = "hidden";
+
+        el.style.animation = 'none';
+        el.style.paddingLeft = '0';
+
+        var isOverflowing = el.clientWidth < el.scrollWidth
+            || el.clientHeight < el.scrollHeight;
+
+        console.log("CLIENT", el.clientWidth, el.scrollWidth, el.clientHeight, el.scrollHeight);
+        el.style.overflow = curOverflow;
+
+        console.log("OVERFLOW", isOverflowing);
+
+        return isOverflowing;
+    }
+
+    // <!-- TODO Announcement banner script -->
+    const announcementBanner = document.getElementById('announcementText');
+    const announcementText = 'Un Discord à été mis en place par ici : <a href="https://discord.antxis.fr">https://discord.antxis.fr</a>';
+    const announcementIFrame = document.getElementById('announcementiframe');
+    console.log("BANIERE", announcementIFrame);
+
+    if (announcementText) {
+        announcementBanner.innerHTML = announcementText;
+
+        if (checkOverflow(announcementBanner)) {
+            announcementBanner.style.animation = 'marquee 15s linear infinite';
+            announcementBanner.style.paddingLeft = '100%';
+        }
+    }
+
+    // Script to handle the close button
+    // document.getElementById('closeAnnouncement').addEventListener('click', function () {
+    //     document.getElementById('announcementBanner').style.display = 'none';
+    //     announcementIFrame.style.display = 'none';
+    // });
+
+    window.addEventListener("resize", (event) => {
+        console.log("RESIZE", event);
+
+        if (checkOverflow(announcementBanner)) {
+            console.log("OVERFLOWING");
+            announcementBanner.style.animation = 'marquee 15s linear infinite';
+            announcementBanner.style.paddingLeft = '100%';
+        }
+    });
+</script>

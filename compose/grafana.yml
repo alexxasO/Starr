@@ -1,21 +1,30 @@
+networks:
+  monitoring-net:
+
 services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    profiles: [ monitor, all ]
+    # profiles: [ monitor, all ]
+    user: root
+    ports:
+    - 3000:3000
     environment:
     - GF_SECURITY_ADMIN_PASSWORD=admin
+    - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource,grafana-piechart-panel,grafana-worldmap-panel,yesoreyeram-boomtheme-panel
     - PUID=${PUID}
     - PGID=${PGID}
     - TZ=${TZ}
     networks:
     - traefik-net
+    - monitoring-net
     volumes:
     - ${APPDATA_PATH}/grafana:/var/lib/grafana
     - ${APPDATA_PATH}/grafana/dashboards:/var/lib/grafana/dashboards
+    - ./grafana/provisioning:/etc/grafana/provisioning
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.grafana.rule=Host(`grafana.lan`)"
+    - "traefik.http.routers.grafana.rule=Host(`grafana.${DOMAIN}`)"
     - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
   prometheus:
@@ -25,7 +34,7 @@ services:
     - ${APPDATA_PATH}/prometheus/data:/prometheus
     - ./build/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     - ./build/prometheus/alert.rules:/etc/prometheus/alert.rules
-    profiles: [ monitor, all ]
+    # profiles: [ monitor, all ]
     command:
     - '--config.file=/etc/prometheus/prometheus.yml'
     - '--storage.tsdb.path=/prometheus'
@@ -33,11 +42,9 @@ services:
     - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
     - 9090:9090
-    # links:
-    # - cadvisor:cadvisor
-    # - alertmanager:alertmanager
     networks:
     - traefik-net
+    - monitoring-net
     user: root
     restart: always
     environment:
@@ -46,5 +53,55 @@ services:
     - TZ=${TZ}
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.prometheus.rule=Host(`prometheus.lan`)"
+    - "traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN}`)"
     - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+
+
+  # Exporters
+
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    # profiles: [ monitor, all ]
+    ports:
+    - 8082:8080
+    networks:
+    - monitoring-net
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    # profiles: [ monitor, all ]
+    ports:
+    - 9100:9100
+    networks:
+    - monitoring-net
+    command:
+    - '--path.procfs=/host/proc'
+    - '--path.sysfs=/host/sys'
+    - '--path.rootfs=/host'
+    - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+    volumes:
+    - /proc:/host/proc:ro
+    - /sys:/host/sys:ro
+    - /:/host:ro
+
+  jellystat-exporter:
+    image: alexxaso/jellyfin-exporter:latest
+    container_name: jellystat-exporter
+    # profiles: [ monitor, all ]
+    ports:
+    - 8088:80
+    networks:
+    - monitoring-net
+    - traefik-net
+    environment:
+    - JELLYFIN_API_URL=${JELLYFIN_URL}
+    - JELLYFIN_API_TOKEN=${JELLYFIN_TOKEN}
+    - JELLYSTAT_API_URL=${JELLYSTAT_URL}
+    - JELLYSTAT_API_TOKEN=${JELLYSTAT_TOKEN}

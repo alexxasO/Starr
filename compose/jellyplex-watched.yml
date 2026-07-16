@@ -10,6 +10,8 @@ services:
     - UMASK=${UMASK}
     - TZ=${TZ}
     - PLEX_TOKEN=${PLEX_TOKEN}
+    networks:
+    - traefik-net
     depends_on:
       jellyfin:
         condition: service_healthy

@@ -1,0 +1,15 @@
+services:
+  theme-park:
+    image: ghcr.io/themepark-dev/theme.park
+    container_name: theme-park
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      # - TP_URLBASE=themepark #optional
+    volumes:
+      - ${APPDATA_PATH}/themepark:/config
+    ports:
+      - 8085:80
+      - 4443:443
+    restart: unless-stopped

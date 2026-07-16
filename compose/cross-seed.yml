@@ -1,0 +1,15 @@
+services:
+  cross-seed:
+    image: ghcr.io/cross-seed/cross-seed:6
+    container_name: cross-seed
+    user: 1000:1000 # this must match your torrent client (cross-seed does not support using PGID and PUID)
+    networks:
+      - traefik-net
+    ports:
+      - "2468:2468"
+    volumes:
+      - ${APPDATA_PATH}/cross-seed:/config
+      - ${DATA_PATH}:/data # You will need at least one extra volume for your media drive if using https://www.cross-seed.org/docs/tutorials/linking
+      - ${DATA_PATH}/torrents/linking:/linking # You will need at least one extra volume for your media drive if using https://www.cross-seed.org/docs/tutorials/linking
+    command: daemon
+    restart: unless-stopped

@@ -14,7 +14,7 @@ check_for_changes_every_secs: 10
 ignore_renames: true
 retain_rd_torrent_name: true
 retain_folder_name_extension: true
-enable_repair: false
+enable_repair: true
 auto_delete_rar_torrents: false
 get_torrents_count: 5000
 # api_timeout_secs: 15

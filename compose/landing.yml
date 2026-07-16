@@ -1,0 +1,9 @@
+services:
+
+  antxis-landing-page:
+    image: alexxaso/antxis-landing-page:latest
+    environment:
+      NODE_ENV: production
+      VITE_ANTXIS_TAGLINE: "Antoine il est moche le con là, nullos"
+    ports:
+      - 3004:3000

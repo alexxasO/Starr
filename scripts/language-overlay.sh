@@ -3,8 +3,8 @@
 # Author: u/ProductRockstar
 # https://www.reddit.com/r/jellyfin/comments/11dgmp3/script_to_add_language_overlay_to_movie_poster/
 
-MOVIES_DIR="/home/alexis/Projects/Starr/volume/data/media/movies"
-OVERLAY_DIR="/home/alexis/Projects/Starr/overlays"
+MOVIES_DIR="/home/plex/Starr/volume/data/media/movies"
+OVERLAY_DIR="/home/plex/Starr/overlays"
 
 while true
 do

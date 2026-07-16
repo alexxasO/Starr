@@ -2,7 +2,7 @@ services:
   qbittorrent:
     container_name: qbittorrent
     restart: unless-stopped
-    image: hotio/qbittorrent:release-4.5.5
+    image: ghcr.io/hotio/qbittorrent:latest
     ports:
     - "8080:8080"
     environment:
@@ -13,20 +13,21 @@ services:
     - WEBUI_PORTS=8080/tcp,8080/udp
     volumes:
     - ${APPDATA_PATH}/qbittorrent:/config
+    - ${APPDATA_PATH}/qbittorrent-games:/games
     - ${DATA_PATH}:/data
+    - /mnt/Games:/mnt/Games
+    - /mnt/nas:/mnt/nas
+    - /mounts:/mounts:rshared
     labels:
     - "org.hotio.pullio.notify=true"
     - "org.hotio.pullio.update=false"
     - "org.hotio.pullio.discord.webhook=${DISCORD_WEBHOOK}"
     - "traefik.enable=true"
-    - "traefik.http.routers.qbittorrent.rule=Host(`qbittorrent.${DOMAIN}`)"
+    - "traefik.http.routers.qbittorrent.rule=Host(`qbit.${DOMAIN}`)"
     - "traefik.http.services.qbittorrent.loadbalancer.server.port=8080"
-    - "traefik.http.routers.qbittorrent.middlewares=noindex@file,redirect-to-https@file"
-    - "traefik.http.routers.qbittorrent.tls.certresolver=myresolver"
-    - "traefik.http.routers.qbittorrent-redirect.rule=Host(`qbittorrent.${DOMAIN}`)"
-    - "traefik.http.routers.qbittorrent-redirect.entrypoints=web"
     networks:
-    - traefik-net
+      traefik-net:
+      qbit-net:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 1m

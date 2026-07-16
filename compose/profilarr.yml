@@ -1,0 +1,13 @@
+services:
+    profilarr:
+        image: santiagosayshey/profilarr:latest
+        container_name: profilarr
+        ports:
+            - 6868:6868
+        volumes:
+            - ${APPDATA_PATH}/profilarr:/config
+        environment:
+            - TZ=${TZ}
+        restart: unless-stopped
+        networks:
+          - traefik-net
