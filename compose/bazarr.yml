@@ -16,10 +16,10 @@ services:
     - ${DATA_PATH}:/data
     - /mnt:/mnt:rshared
     - /mounts:/mounts:rshared
-    depends_on:
-      rclone:
-        condition: service_healthy
-        restart: true
+#    depends_on:
+#      rclone:
+#        condition: service_healthy
+#        restart: true
     networks:
       traefik-net:
     labels:

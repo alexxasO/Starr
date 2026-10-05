@@ -1,0 +1,21 @@
+services:
+    kapowarr:
+        container_name: kapowarr
+        image: mrcas/kapowarr:latest
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        volumes:
+            - "kapowarr-db:/app/db"
+            - "${DATA_PATH}/torrents/books:/app/temp_downloads"
+            - "${DATA_PATH}/media/comics:/comics"
+            - "${DATA_PATH}:/data"
+        ports:
+            - 5656:5656
+        networks:
+          traefik-net:
+
+volumes:
+    kapowarr-db:
+

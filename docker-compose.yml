@@ -1,26 +1,34 @@
 include:
-  - compose/landing.yml
-
-  # Downloaders
-  - blackhole/docker-compose.yml
-  - zurg/docker-compose.yml
-  - compose/qui.yml
-  - compose/qbittorrent.yml
-
-  # Jellyfin Stack
+#  - blackhole/docker-compose.yml
+#  - zurg/docker-compose.yml
+  - compose/bazarr.yml
+  # - compose/cross-seed.yml
+  # - compose/meilisearch.yml
+  - compose/gotify.yml
   - compose/jellyfin.yml
   - compose/jellyseerr.yml
+  # - compose/jellystat.yml
   - compose/jfa-go.yml
-
-  # Arr* Applications
   - compose/prowlarr.yml
+  # - compose/gluetun.yml
+  #  - compose/qbitmanage.yml
+  - compose/qbittorrent.yml
+  - compose/qui.yml
+
   - compose/radarr.yml
   - compose/sonarr.yml
-  - compose/byparr.yml
-  - compose/bazarr.yml
+  - compose/kapowarr.yml
+  # - compose/mylar3.yml
+  # - compose/lidarr.yml
+  # - compose/readarr.yml
 
-  # Gotify - Notifications
-  - compose/gotify.yml
+  # - compose/autobrr.yml
+  - compose/byparr.yml
+  - compose/landing.yml
+  - compose/flaresolverr.yml
+  # - compose/calibre.yml
+  # - compose/plex.yml
+  # - compose/jellyplex-watched.yml
 
   # Homarr - Dashboard
   # - compose/homarr.yml

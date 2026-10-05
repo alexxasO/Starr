@@ -1,0 +1,18 @@
+services:
+  mylar3:
+    image: lscr.io/linuxserver/mylar3:latest
+    container_name: mylar3
+    environment:
+      - PUID=${PUID}
+      - PGID={PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${APPDATA_PATH}/mylar3:/config
+      - ${DATA_PATH}/media/books:/comics
+      - ${DATA_PATH}/torrents/books:/downloads
+      - ${DATA_PATH}:/data
+    networks:
+      traefik-net:
+    ports:
+      - 8090:8090
+    restart: unless-stopped

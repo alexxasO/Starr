@@ -1,0 +1,16 @@
+services:
+  kavita:
+    image: lscr.io/linuxserver/kavita:latest
+    container_name: kavita
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - "${APPDATA_PATH}/kavita:/config"
+      - "${DATA_PATH}:/data"
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+    networks:
+      traefik-net:
