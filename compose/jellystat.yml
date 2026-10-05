@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_DB: 'jfstat'
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
     networks:
     - traefik-net
     volumes:
@@ -14,10 +14,10 @@ services:
     image: cyfershepard/jellystat:latest
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
       POSTGRES_IP: jellystat-db
       POSTGRES_PORT: 5432
-      JWT_SECRET: 'my-secret-jwt-key'
+      JWT_SECRET: ${JELLYSTAT_JWT_SECRET}
     ports:
     - "8097:3000" #Server Port
     volumes:

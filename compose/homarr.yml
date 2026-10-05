@@ -10,7 +10,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
       - ${APPDATA_PATH}/homarr:/appdata
     environment:
-      - SECRET_ENCRYPTION_KEY=YOUR_HOMARR_SECRET_ENCRYPTION_KEY
+      - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
     networks:
       - traefik-net
     ports:

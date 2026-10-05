@@ -8,8 +8,8 @@ fi
 
 set -a && source .env && set +a
 
-PROWLARR_API_KEY="YOUR_PROWLARR_API_KEY"
-PASSKEY_SHAREWOOD="YOUR_SHAREWOOD_PASSKEY "
+: "${PROWLARR_API_KEY:?PROWLARR_API_KEY must be set in .env}"
+: "${PASSKEY_SHAREWOOD:?PASSKEY_SHAREWOOD must be set in .env}"
 
 # Sharewood Indexer
 jq --arg passkey "$PASSKEY_SHAREWOOD" '

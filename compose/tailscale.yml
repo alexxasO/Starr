@@ -3,7 +3,7 @@ services:
     image: tailscale/tailscale:latest
     hostname: tailscale-nginx
     environment:
-      - TS_AUTHKEY=tskey-auth-YOUR_TAILSCALE_AUTHKEY
+      - TS_AUTHKEY=${TS_AUTHKEY}
       # - TS_EXTRA_ARGS=--advertise-tags=tag:container
       - TS_STATE_DIR=/var/lib/tailscale
       # - TS_USERSPACE=false
@@ -23,7 +23,7 @@ services:
     network_mode: "service:tailscale"
     environment:
       TZ: 'Europe/Paris'
-      WEBPASSWORD: 'YOUR_PIHOLE_WEBPASSWORD'
+      WEBPASSWORD: '${PIHOLE_WEBPASSWORD}'
     volumes:
       - '${APPDATA_PATH}/etc-pihole/:/etc/pihole/'
       - '${APPDATA_PATH}/etc-dnsmasq.d/:/etc/dnsmasq.d/'

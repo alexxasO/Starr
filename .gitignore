@@ -1,3 +1,11 @@
 *.env
-
+!.env.example
 volume/**
+zurg/config.yml
+*.pem
+*.key
+*.crt
+*.p12
+*.swp
+*.save
+compose/etc-pihole/
