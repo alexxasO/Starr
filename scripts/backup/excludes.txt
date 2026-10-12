@@ -1,0 +1,13 @@
+# Jellyfin — reconstructible
+jellyfin/cache
+jellyfin/log
+jellyfin/transcodes
+
+# Generic app logs
+**/logs
+**/Log
+**/log
+**/*.log
+
+# Prometheus TSDB (metrics, not config)
+prometheus/data

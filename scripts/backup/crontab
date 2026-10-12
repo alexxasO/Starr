@@ -1,0 +1,3 @@
+# Default schedule (overridden at runtime by BACKUP_CRON in the backup container).
+# Runs daily at 03:00.
+0 3 * * * /scripts/run-backup.sh

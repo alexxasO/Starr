@@ -1,6 +1,7 @@
 include:
 #  - blackhole/docker-compose.yml
 #  - zurg/docker-compose.yml
+  - compose/backup.yml
   - compose/bazarr.yml
   # - compose/cross-seed.yml
   # - compose/meilisearch.yml

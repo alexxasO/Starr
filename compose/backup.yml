@@ -1,0 +1,24 @@
+services:
+  backup:
+    container_name: backup
+    build:
+      context: ./build/backup
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ}
+      - RESTIC_REPOSITORY=/repo
+      - RESTIC_PASSWORD=${RESTIC_PASSWORD}
+      - BACKUP_CRON=${BACKUP_CRON:-0 3 * * *}
+      - BACKUP_SFTP_REPO=${BACKUP_SFTP_REPO:-}
+      - BACKUP_SFTP_KEY_FILE=${BACKUP_SFTP_KEY_FILE:-}
+      - DISCORD_WEBHOOK=${DISCORD_WEBHOOK:-}
+      - COMPOSE_DIR=/sources/starr
+    volumes:
+      - ${APPDATA_PATH}:/sources/appdata:ro
+      - ..:/sources/starr:ro
+      - ${BACKUP_LOCAL_PATH:-/backup}:/repo
+      - ../scripts/backup:/scripts:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      # SFTP (optional): mount your private key, set BACKUP_SFTP_REPO + BACKUP_SFTP_KEY_FILE=/ssh/id_ed25519
+      # - ${BACKUP_SFTP_HOST_KEY_PATH}:/ssh/id_ed25519:ro
