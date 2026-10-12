@@ -9,3 +9,7 @@ zurg/config.yml
 *.swp
 *.save
 compose/etc-pihole/
+data/
+appdata/
+transcode/
+backup/

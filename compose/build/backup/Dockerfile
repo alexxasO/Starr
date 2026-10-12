@@ -19,7 +19,7 @@ RUN curl -fsSL -o /usr/local/bin/supercronic \
     && chmod +x /usr/local/bin/supercronic
 
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+RUN sed -i 's/\r$//' /entrypoint.sh && chmod +x /entrypoint.sh
 
 ENV RESTIC_REPOSITORY=/repo
 ENV BACKUP_CRON="0 3 * * *"
