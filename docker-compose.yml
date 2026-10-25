@@ -25,7 +25,7 @@ include:
 
   # - compose/autobrr.yml
   - compose/byparr.yml
-  - compose/landing.yml
+  # - compose/landing.yml
   - compose/flaresolverr.yml
   # - compose/calibre.yml
   # - compose/plex.yml
