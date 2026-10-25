@@ -52,6 +52,9 @@ include:
   # Dozzle - Docker Logs Viewer
   - compose/dozzle.yml
 
+  # Monitoring - Grafana / Prometheus
+  - compose/monitoring.yml
+
 networks:
   traefik-net:
   qbit-net:
